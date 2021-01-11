@@ -39,7 +39,7 @@ public class UtilsForScan {
         return value;
     }
     
-    public static int lectureRobusteEntierString(String nombre){
+    public static int lectureRobusteEntier(String nombre){
         Scanner kbd = new Scanner(System.in);
         int nb;
         String value = nombre;
@@ -59,7 +59,7 @@ public class UtilsForScan {
         return nb = Integer.parseInt(value);
     }
     
-    public static double lectureRobusteDoubleString(String nombre){
+    public static double lectureRobusteDouble(String nombre){
         Scanner kbd = new Scanner(System.in);
         double nb;
         String value = nombre;

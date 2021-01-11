@@ -17,4 +17,8 @@ public class StringUtils {
         }
         return stb.toString();
     }
+    
+    public static void afficherTitre(String nom, String prénom, String matricule){
+        System.out.println(nom+"-"+prénom+"-"+matricule);
+    }
 }
