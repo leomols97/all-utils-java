@@ -1,0 +1,82 @@
+//Excercice 1
+classe PileListe() implement Pile<T>
+
+	private stack : LinkedList<T>
+	
+	PileListe()
+		stack <-- new LinkedList<T>
+	
+	push(value : T) --> void
+		stack.insérerTête(value);
+	fin push
+	
+	pop() --> T
+		value : T <-- top()
+		stack.supprimerTête();
+		return value;
+	fin pop
+	
+	top() --> T
+		if(stack.estVide()){
+			throw error
+		}
+		return stack.getFirst().getValue();
+	fin top
+	
+	estVide() --> boolean
+		return stack.isEmpty()
+	fin estVide
+
+fin PileListe
+	
+//excercice 2
+classe PileTab<T> implement Pile<T>
+
+	private :
+		tab : array<T>
+		indSommet : int
+		
+	public :
+	
+	PileTab(int tailleMax)
+		tab <-- new array of tailleMax element
+		indSommet <-- -1
+	fin PileTab
+	
+	push(value : T) --> void
+		if(indSommet == tab.size() - 1){
+			throw error
+		}
+		indSommet++
+		tab[indSommet] <-- value
+	fin push
+	
+	pop() --> T
+		value : T <-- top()
+		indSommet--
+		return value
+	fin pop
+	
+	top() --> T
+		if(estVide){
+			throw error
+		}
+		return tab[indSommet]
+	fin top
+	
+	estVide() --> boolean
+		return indSommet == -1
+	fin estVide
+	
+//Excercice 3
+algo itinéraireRetour(fileIn : FichierEntrée d'info) --> FichierSortie d'info
+
+	enr : info
+	pileVille : PileListe <-- new PileListe()
+	pileKm : PileListe <-- new PileListe()
+	fileOut : FichierSortie d'info
+	km : int
+	
+	
+	
+	

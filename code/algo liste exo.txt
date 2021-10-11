@@ -1,0 +1,74 @@
+algo tassementListe( l LinkedList<int>) --> void //excercice 7
+	if(! l.isEmpty){
+	
+		current <-- getPremier()
+		while(current.getNext() != null){
+			if(current.getValue() == current.getNext.getValue()){
+				l.deleteAfter(current);
+			}else {
+				current = current.next();
+			}
+		}
+	}
+
+//excercice 8 cas 1	
+algo listeImbriquer( l1 : LinkedList<Integer>, l2 : LinkedList<Integer>) --> LinkedList<Integer>
+	
+	LinkedList<Integer> l3 = new LinkedList<>();
+	
+	if(l1.isEmpty && l2.isEmpty){
+		return l3;
+	} else if( l1.isEmpty) {
+		return l2;
+	} else if( l2.isEmpty) {
+		return l1;
+	}
+	
+	l1CurrentNood = l1.getFirst();
+	l2CurrentNood = l2.getFirst();
+	l3CurrentNood = l3.getFirst();
+		
+	do{
+		if(l1CurrentNood != null){
+		l3.add(l3CurrentNood, l1CurrentNood.getValue());
+		l1CurrentNood = l1CurrentNood.getNext();
+		l3CurrentNood = l3CurrentNood.getNext();
+		}else if(l2CurrentNood != null){
+		l3.add(l3CurrentNood, l2CurrentNood.getValue());
+		l2CurrentNood = l2CurrentNood.getNext();
+		l3CurrentNood = l3CurrentNood.getNext();
+		}
+	}while(l1CurrentNood != null || l2CurrentNood != null);
+	
+	return l3;
+
+// cas 2
+
+algo ListeImbriquer2 (LinkedList<Integer> l1, LinkedList<Integer> l2) --> LinkedList<Integer>
+
+	if(l1.isEmpty && l2.isEmpty){
+		return l3;
+	} else if( l1.isEmpty) {
+		return l2;
+	} else if( l2.isEmpty) {
+		return l1;
+	}
+	
+	l1CurrentNood = l1.getFirst();
+	l2CurrentNood = l2.getFirst();
+	
+	do{
+		if(l2CurrentNood != null){
+			l1.addAfter(l2CurrentNood, l2CurrentNood.getValue());
+			l2CurrentNood = l2CurrentNood.getNext();
+			if(l1CurrentNood.getNext().getNext() != null){
+				l1CurrentNood = l1CurrentNood.getNext().getNext();
+			}else {
+				l1CurrentNood = l1CurrentNood.getNext();
+			}
+	}while(l1CurrentNood != null && l2CurrentNood != null);
+	
+	if(l1.size() > l2.size()){
+		return l1;
+	
+		
