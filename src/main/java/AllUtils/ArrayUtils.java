@@ -39,6 +39,8 @@ public class ArrayUtils {
         }
         System.out.println("bruh");
         System.out.println("wtf");
+        System.out.println("next");
+        System.out.println("next2");
         return -1;
     }
     
