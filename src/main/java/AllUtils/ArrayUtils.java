@@ -37,7 +37,8 @@ public class ArrayUtils {
                 leftIndex = medianIndex + 1;
             }
         }
-        System.out.println("test");
+        System.out.println("bruh");
+        System.out.println("wtf");
         return -1;
     }
     
