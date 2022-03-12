@@ -12,9 +12,9 @@ int main()
     a.push_back(3);
     a.push_back(4);
     a.push_back(5);
-    for(auto i : a)
+    for(auto j : a)
     {
-        cout << i << endl;
+        cout << j << endl;
     }
     return 0;
 }
