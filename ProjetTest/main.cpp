@@ -1,22 +1,19 @@
 #include <iostream>
 #include <vector>
+#include <map>
 using namespace std;
 
-enum TestValue {LOL = 'L'};
+enum TestValue {LOL = 1, MDR = 2};
+std::map<int, int> m {
+    {1, 'm'}
+};
 
 int main()
 {
-    cout << "a" << endl;
-    cout << "b" << endl;
-    std::vector<int> a {};
-    a.push_back(1);
-    a.push_back(2);
-    a.push_back(3);
-    a.push_back(4);
-    a.push_back(5);
-    for(auto j : a)
+    std::string s {"global"};
+    if(s.at(1) == 'l')
     {
-        cout << j << endl;
+        cout << "wow" << endl;
     }
     return 0;
 }
