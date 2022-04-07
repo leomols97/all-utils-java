@@ -1,0 +1,16 @@
+#!/bin/bash
+
+echo
+echo "sript pour faire ce qui est demandé."
+echo
+echo "Création du fichier confidentiel."
+sudo touch confidentiel
+echo sudo "phrase confidentiel" > confidentiel
+echo "Changement droit du fichier confidentiel"
+sudo chmod 600 confidentiel
+echo "Changement droit de l'executable Mcat"
+sudo chmod 4755 Mcat
+echo "bon maintenant a toi de faire le reste car je vais pas tout faire pour toi non plus."
+echo "tu dois juste executer Mcat avec le fichier confidentiel."
+echo "Bon, je vais le faire pour toi comme t'es un flemmard."
+./Mcat confidentiel

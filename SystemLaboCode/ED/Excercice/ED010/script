@@ -1,0 +1,13 @@
+#!/bin/bash
+
+echo
+echo "sript pour faire un fichier non ouvrable."
+echo
+echo "Création du fichier."
+sudo touch confidentiel
+echo "Changement droit du fichier confidentiel"
+sudo chmod 644 confidentiel
+echo "bon maintenant a toi de faire le reste car je vais pas tout faire pour toi non plus."
+echo "tu dois juste executer Mcat avec le fichier confidentiel."
+echo "Bon, je vais le faire pour toi comme t'es un flemmard."
+./TestDroit confidentiel

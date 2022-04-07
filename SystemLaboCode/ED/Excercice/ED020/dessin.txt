@@ -1,0 +1,39 @@
+---------
+|stdin   |
+|stdout  |
+|stderror|
+---------
+
+Après fd1
+---------
+|stdin   |
+|stdout  |
+|stderror|
+|1000    | --> fd1 contient 1000 
+---------
+
+Note : 1000 c'est une valeur arbitraire. ca peut n'imp en vrai. 
+
+Après fd2
+---------
+|stdin   |
+|stdout  |
+|stderror|
+|1000    | --> fd1 contient 1000 
+|1000    | --> fd2 contient 1000 aussi
+---------
+
+Note : dup (et pas dup2 attention a pas confondre) copier la valeur en paramètre 
+et la met dans la prochaine entré libre dans la table des handles
+
+Après fd3
+---------
+|stdin   |
+|stdout  |
+|stderror|
+|1000    | --> fd1 contient 1000 
+|1000    | --> fd2 contient 1000 aussi
+|2000    | --> fd3 contient 2000
+---------
+
+Note : fd3 a une valeur différente mais va écrire et lire le meme fichier que fd1 ou fd2

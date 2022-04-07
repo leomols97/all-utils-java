@@ -1,0 +1,16 @@
+Test:TestMake2
+        ./TestMake2 3
+
+TestMake2: TestMake2.o boucle.o
+        gcc -o TestMake2 TestMake2.o boucle.o
+
+TestMake2.o: TestMake2.c MonInclude.h boucle.h
+        gcc -c TestMake2.c
+
+boucle.o: boucle.c
+        gcc -c boucle.c
+
+clean:
+        @# supprime les fichiers objet, l'exécutable 
+        @# et les fichiers temporaires
+        @rm -f TestMake2 *.o  *~

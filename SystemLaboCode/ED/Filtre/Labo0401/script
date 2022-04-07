@@ -1,0 +1,16 @@
+#!/bin/bash
+
+echo
+echo "sript pour tester Mcat."
+echo
+echo "cas 1 : Mcat simple (ctrl+D pour sortir)"
+./Mcat
+echo "cas 2 : ls | Mcat"
+ls | ./Mcat
+echo "cas 3 : redirection dans un fichier"
+./Mcat > MonFichierCat
+echo "cas 4 : ls | Mcat >> fichier"
+ls | ./Mcat >> MonFichierCat2
+echo "cas 5 : Mcat < file"
+./Mcat < MonFichierCat
+echo "Fin des tests"
