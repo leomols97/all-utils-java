@@ -1,0 +1,134 @@
+\documentclass[a4paper,11pt]{article}
+
+%\usepackage[showframe]{geometry} %use this if you want to check margins
+\usepackage{geometry}
+\geometry{centering,total={160mm,250mm},includeheadfoot}
+
+%auxiliairy files
+\input{header.tex} %usepackage and configurations
+\input{cmds.tex} %user defined commands
+
+\usepackage{todonotes}
+
+%title
+\newcommand{\doctitle}{Security}
+\newcommand{\docsubtitle}{Access control}
+\newcommand{\tdyear}{2021 -- 2022}
+\author{R. Absil \and P. Hauweele}
+
+\newcommand{\deadline}{24 April at 23h59\xspace}
+\newcommand{\deadlinesubscription}{10 April at 23h59\xspace}
+
+\begin{document}
+\pagestyle{fancy} %displays custom headers and footers
+
+\maketitle
+
+This document quickly reviews a few access control techniques and principles to implement on a basic client / server application, in \java.
+
+\section*{Introduction}
+
+Access control is a core concept in sensitive computer systems. In general, a secure system must at least implement the following features:
+\begin{itemize}
+\item confidentiality: sensitive data can only be accessed/read/interpreted by actors who have the right to do so;
+\item non repudiation: when a transaction $t$ is performed between actors $x$ and $y$, making sure that $x$ and $y$ are who they claim to be, and that none of them can deny taking part in $t$;
+\item integrity: alteration of data/commands transmitted between two actors can be easily detected.\\
+\end{itemize}
+
+For the purpose of this lab, we will use a minimal\footnote{For the sake of simplicity, and to solely focus on security, we will shamelessly and with impunity violate nearly every single software engineering principle regarding the design of client/server applications.} client/server application implemented in \java. The main components of this application are:
+\begin{itemize}
+\item \texttt{BasicMessage.java} and \texttt{MsgTypes.java}: classes modeling simple messages, used by both the client and the server;
+\item \texttt{BasicServer.java}: classes modeling the server's side of the application, namely, a simple class for the server, a utility class (\texttt{BasicServerThread}) to model a session, and the interface \texttt{BasicMessageHandler} as the handler for messages of specific types (this interface will have to be implemented for each message recognisable by the server);
+\item \texttt{UserDB}: a simple interface to store (resp. retrieve) users into (resp. from) a file;
+\item \texttt{BasicTextClient.java}: a simple class to model a client able to send text messages to a server;
+\item \texttt{ClientMain.java} and \texttt{ServerMain.java}: the two \texttt{main} files allowing to launch the client and the server, respectively.
+\end{itemize}
+Note that the files \texttt{ClientMain.java} and \texttt{ServerMain.java} can be used as tutorials showing how to use this small framework.
+
+There are only three predefined commands in this application:
+\begin{itemize}
+\item telling "You killed my father" to the server, that answers "No, I am your father";
+\item telling "Hello there" to the server, that answers "General Kenobi!";
+\item closing the session.
+\end{itemize}
+Note that, concretely, these commands are handled a bit differently.\footnote{For modularity, it is considered that the client accepts \emph{commands}, made out of an initial string followed by potential data. There are three predefined commands: \texttt{HELLO}, \texttt{FATHER} and \texttt{EXIT}. It is then expected that \texttt{FATHER} is followed by \texttt{You killed my father} and \texttt{HELLO} by \texttt{Hello there}. Depending on the type of command, the client then builds up a particular message type, later written down to the stream linking the client to the server.}
+
+In the next section, the objective will be to implement several security principles. More precisely, we will take the following steps:
+\begin{enumerate}
+\item implement a basic password-based authentication;
+%\item implement two user roles: administrator, and non-administrator;
+\item making sure that non-authenticated users cannot use restricted commands;
+\item making sure that transactions cannot be replayed.
+\end{enumerate}
+
+Note that while this lab provides exercices to illustrate these concepts and implement security features, they \emph{do not} concretely detail how to implement them. It is a soft skill you are expected to develop. You are encouraged to think outside the box.
+
+For the sake of simplicity, we will consider that:
+\begin{itemize}
+\item the server has a pre-generated RSA key pair;
+\item every client has, at any time, a copy of the public key of the server, and the ownership of this key can be trusted.
+\end{itemize}
+Clients will generate their own pair of keys when needed, and these keys will also be trusted by the server. For that purpose, the classes \texttt{MessageDigest}, \texttt{Cipher}, \texttt{KeyPair}, \texttt{KeyGenerator} and \texttt{SealedObject} from the Java standard will most likely be useful.
+
+This scheme is clearly flawed, mainly in terms of certification and associated security features. For that reason, it is possible that some of the exercices that are given are artificial. These problems will be addressed in the next lab, as this one focuses on access control and protection against replay attacks.
+
+\section*{Submission}
+
+Projects can be implemented in pairs (groups of 2 students), and must be submitted with the help of a git repository\footnote{Create the repository yourself, add your teacher as maintainer.}.
+For that purpose, send an email to your teacher on \deadlinesubscription at the latest with the URL to your repository, and the name and matricule of your group members.
+
+You have to submit your work on \deadline at the latest. The minimal requirements for submitted projects are as follows:
+\begin{itemize}
+\item projects have to be submitted on time,
+\item projects have to provide a readme file
+	\begin{itemize}
+	\item mentioning the name and matricule of your group members,
+	\item explaining how to build your project\footnote{Projects that do not compile will not be graded.} (we recommend here to either provide a makefile, or a shell script to install missing dependencies, compile the project and run relevant scripts),
+	\item explaining how to initialise and/or launch the server and the client.	
+	\end{itemize}
+\end{itemize}
+
+Projects failing to meet these requirements will not be graded (that is, they will get 0/20). Furthermore, note that we shall in \emph{no way} build or run your projects in an IDE.
+
+\section*{Exercises}
+
+For the following exercices, we will ask that you add several features associated with security in the basic client/server framework that we provided. For that purpose, we advise that you create new message types, message handlers, etc. While you are free to modify the code we provided in any way you want, it should be enough to add enumerators in the \texttt{MsgType} enumeration, and then only work from within the \texttt{ClientMain} and \texttt{ServerMain} classes.
+
+\begin{exo}
+Implement a basic password-based user registration scheme, that is, create a message type allowing non authenticated users to ask for the creation of their user account.
+\end{exo}
+
+When a user asks for an account to be created, he provides a \texttt{login} and a \texttt{password} matching the policy\footnote{Passwords are assumed to be between 6 and 8 alphanumeric ASCII characters.}. The login has to be unique. 
+
+Note that it is expected here that users' passwords are transmitted and stored securely, that is
+\begin{itemize}
+  \item passwords are ciphered with RSA (2048 bits) when transmitted from the client to the server,
+  \item passwords are salted and stored hashed using 100 passes through the PBKDF2 hash function\footnote{It's probably useful to have a look at the Java classes \texttt{javax.crypto.spec.PBEKeySpec} and \texttt{javax.crypto.SecretKeyFactory}}.
+\end{itemize}
+In order to persistently store users, we demand that you use the \texttt{UserDB} class. This class is able to associate any \texttt{login} to an arbitrary amount of data, with the help of the parameter \lstinline|byte[]... fields|. This information is transparently (un)serialised for you, so no modification of this class should be required.
+
+\begin{exo}
+Implement a simple authentication scheme so that registered users can authenticate providing their login and password.
+\end{exo}
+
+\begin{exo}
+Make sure that messages of type \texttt{FATHER} are only processed for authenticated users.
+\end{exo}
+
+%\begin{exo}
+%Make sure that messages sent to the server cannot be replayed, by using the Lamport's scheme. You will have to implement a routine to renew the hash chain when it has been depleted.
+%\end{exo}
+
+\begin{exo}
+  Implement the following challenge-answer scheme so that no message can be replayed%\todo{Two methods for replaying prevention ?}:
+\begin{enumerate}
+\item when actor $x$ sends a message to actor $y$, he includes an encrypted random integer $n_1$;
+\item when actor $y$ answers, he provides $n_1+1$ (to be checked by $x$), and includes an encrypted random integer $n_2$;
+\item When actor $x$ answers, he provides $n_2+1$ (to be checked by $y$), and includes an encrypted random integer $n_3$, etc.\\
+\end{enumerate}
+
+For the purpose of this exercice, it is probably useful to create a class \texttt{NonReplayableMessage} packing up an integer (to be checked according to the above scheme) along with a \texttt{BasicMessage}.
+\end{exo}
+
+\end{document}
+
