@@ -23,18 +23,16 @@ void treeRecursive(const char* nom, char* currentPath, int space)
         printf("%s \n", nom);
         while ((dirp=readdir(dp)) != NULL)
         {
-                if(dirp->d_type & DT_DIR)
+                if(dirp->d_type & DT_DIR) // permet de check si c'est un répertoire
                 {
-                        if(strcmp(dirp->d_name, str1) != 0 && strcmp(dirp->d_name, str2) != 0)
-                        {
-                        //      printf("wow %s %s\n", currentPath, nom);        
+                        if(strcmp(dirp->d_name, str1) != 0 && strcmp(dirp->d_name, str2) != 0) // check si c'est pas lui meme ou le rep parent pour éviter boucle infini
+                        {      
                                 strcpy(copyPath, currentPath);
                                 strcat(copyPath, "/");
-                                strcat(copyPath, dirp->d_name);
+                                strcat(copyPath, dirp->d_name); // Créer le path pour l'appel suivant.
                                 treeRecursive(dirp->d_name, copyPath, space +1);
                         }
                 }
-        //      printf("%d %s\n", S_ISDIR(sb.st_mode), dirp->d_name);
         }
         free(copyPath);
         closedir(dp);
