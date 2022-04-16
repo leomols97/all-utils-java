@@ -5,8 +5,8 @@ public enum MsgType
     EXIT,
     FATHER,
     HELLO,
-    PUBLIC, // To get the public key of the server
-    SEND,
-    SESSION,
-    REGISTER // Create a new user
+    CONNECTION, // To get the public key of the server
+    REGISTER, // Create a new user
+    LOGIN, // To log to the server
+    TEST
 }
