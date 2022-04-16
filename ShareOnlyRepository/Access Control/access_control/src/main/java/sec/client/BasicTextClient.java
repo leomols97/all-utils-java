@@ -87,6 +87,7 @@ public class BasicTextClient
             // save server challenge
             String decipherChallenge = decipher(message.getChallenge());
             response = Integer.parseInt(decipherChallenge);
+            System.out.println("After connection : " + response);
             
             // Key factor to get the serverPk
             KeyFactory keyFactory = KeyFactory.getInstance("RSA");
@@ -107,6 +108,8 @@ public class BasicTextClient
                     String EncryptedChallenge = encryption(challenge.toString());
                     this.response = this.response + 1;
                     String encryptedResponse = encryption(response.toString());
+//                    System.out.println("Response : " + response);
+//                    System.out.println("Challenge : " + challenge);
                     
                     MsgType msgType = MsgType.valueOf(
                             line.substring(0, sepIdx).toUpperCase());
@@ -130,7 +133,7 @@ public class BasicTextClient
                     this.response = Integer.parseInt(decipher(serverMessage.getChallenge()));
                     
                     // If the checking is ok then the message of the server is readed
-                    String decipheredMessage = decipher((String) fromServer.readObject());
+                    String decipheredMessage = decipher(serverMessage.getText());
                     if(MsgType.LOGIN == msgType) {
                         String[] splited = decipheredMessage.split(":");
                         decipheredMessage = splited[0];

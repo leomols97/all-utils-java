@@ -92,7 +92,7 @@ public class ServerMain extends BasicServer {
             Integer clientChallenge = Integer.parseInt(decipher(msg.getChallenge()));
             Integer clientResponse = Integer.parseInt(decipher(msg.getResponse()));
 
-            if (!Objects.equals(clientResponse, this.challenge + 1)) {
+            if (Objects.equals(clientResponse, this.challenge + 1)) {
                 // Check if the current user is authenticated or not
                 this.challenge = secure.nextInt();
                 Integer serverResponse = clientChallenge + 1;
@@ -127,8 +127,11 @@ public class ServerMain extends BasicServer {
             String txt = msg.getText();
             Integer clientChallenge = Integer.parseInt(decipher(msg.getChallenge()));
             Integer clientResponse = Integer.parseInt(decipher(msg.getResponse()));
+//            System.out.println("ClientResponse : " + clientResponse);
+//            System.out.println("clientChallenge : " + clientChallenge);
+//            System.out.println("Current challenge : " + challenge);
 
-            if (!Objects.equals(clientResponse, this.challenge + 1)) {
+            if (Objects.equals(clientResponse, this.challenge + 1)) {
                 this.challenge = secure.nextInt();
                 Integer serverResponse = clientChallenge + 1;
                 String encryptedServerChallenge = encryption(challenge.toString());
@@ -190,7 +193,7 @@ public class ServerMain extends BasicServer {
             Integer clientChallenge = Integer.parseInt(decipher(msg.getChallenge()));
             Integer clientResponse = Integer.parseInt(decipher(msg.getResponse()));
 
-            if (!Objects.equals(clientResponse, this.challenge + 1)) {
+            if (Objects.equals(clientResponse, this.challenge + 1)) {
                 
                 // Check if the current user is authenticated or not
                 this.challenge = secure.nextInt();
@@ -253,7 +256,7 @@ public class ServerMain extends BasicServer {
             Integer clientChallenge = Integer.parseInt(decipher(msg.getChallenge()));
             Integer clientResponse = Integer.parseInt(decipher(msg.getResponse()));
 
-            if (!Objects.equals(clientResponse, this.challenge + 1)) {
+            if (Objects.equals(clientResponse, this.challenge + 1)) {
                 this.challenge = secure.nextInt();
                 Integer serverResponse = clientChallenge + 1;
                 String encryptedServerChallenge = encryption(challenge.toString());
