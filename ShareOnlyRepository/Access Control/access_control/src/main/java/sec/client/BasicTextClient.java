@@ -20,6 +20,7 @@ import java.security.PublicKey;
 import java.security.SecureRandom;
 import java.security.spec.*;
 import java.util.Base64;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.crypto.BadPaddingException;
@@ -38,6 +39,9 @@ public class BasicTextClient
     private final PrivateKey privateKey;
     private PublicKey serverPK;
     private String session;
+    private SecureRandom secure;
+    private Integer challenge;
+    private Integer response;
 
     public BasicTextClient(String ip, int port) throws NoSuchAlgorithmException
     {
@@ -50,6 +54,7 @@ public class BasicTextClient
         privateKey = pair.getPrivate();
         publicKey = pair.getPublic();
         session = null;
+        secure = new SecureRandom();
 //        String publicK = Base64.getEncoder().encodeToString(publicKey.getEncoded());
 //        String privateK = Base64.getEncoder().encodeToString(privateKey.getEncoded());
 //        System.out.println("Public key");
@@ -68,54 +73,27 @@ public class BasicTextClient
 
             Scanner scanner = new Scanner(System.in);
             String line;
-            // Mettre ca dans une méthode d'échange
             
             // Send client PK to the server.
             String clientPK = Base64.getEncoder().encodeToString(publicKey.getEncoded());
             //System.out.println("PK : " + clientPK);
-            toServer.writeObject(new TextMessage(clientPK, MsgType.CONNECTION));
+            toServer.writeObject(new TextMessage(clientPK, MsgType.CONNECTION, "", ""));
             
             // Get the PK of the server
-//            toServer.writeObject(new TextMessage("", MsgType.SESSION));
-//            String publicKString = (String) fromServer.readObject();
-//            byte[] publicK = Base64.getDecoder().decode(publicKString);
-            String sKey = (String) fromServer.readObject();
+            TextMessage message = (TextMessage) fromServer.readObject();
             //System.out.println("Server PK : " + sKey);
-            byte[] publicK = Base64.getDecoder().decode(sKey);
+            byte[] publicK = Base64.getDecoder().decode(message.getText());
+            
+            // save server challenge
+            String decipherChallenge = decipher(message.getChallenge());
+            response = Integer.parseInt(decipherChallenge);
             
             // Key factor to get the serverPk
             KeyFactory keyFactory = KeyFactory.getInstance("RSA");
             X509EncodedKeySpec publicKeySpec = new X509EncodedKeySpec(publicK);
             serverPK = keyFactory.generatePublic(publicKeySpec);
             
-            // Generate session key
-            //KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
-            //keyGenerator.init(128);
-            //SecretKey originalKey = keyGenerator.generateKey();
-            //String sessionKeyS = Base64.getEncoder().encodeToString(originalKey.getEncoded());
-            //System.out.println("Before cipher session key : " + sessionKeyS);
-            
-            // cipher the secret key
-            // test with a word
-            //System.out.println("Test send message crypte");
-            //String s = "Yo les gens";
-            //Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
-            //cipher.init(Cipher.ENCRYPT_MODE, serverPK);
-            //cipher.update(s.getBytes());
-            //byte[] cipherKey = cipher.doFinal();
-            //String sessionKey = Base64.getEncoder().encodeToString(cipherKey);
-            //String lol = Base64.getEncoder().encodeToString(s.getBytes());
-            //System.out.println("Base key : " + lol);
-            //System.out.println("Message crypté : " + sessionKey);
-            
-            // Send secret key to the server
-            //toServer.writeObject(new TextMessage(sessionKey, MsgType.TEST));
-            
-            //Send client public key to the server
-            //String clientPublicK = Base64.getEncoder().encodeToString(publicKey.getEncoded());
-            //toServer.writeObject(new TextMessage(clientPublicK, MsgType.SEND));
-            
-            // fin des méthode echange
+            // End of key exchange
             System.out.print("> ");
             while (scanner.hasNextLine() &&
                    !(line = scanner.nextLine()).equalsIgnoreCase("exit"))
@@ -123,6 +101,13 @@ public class BasicTextClient
                 try
                 {
                     int sepIdx = line.indexOf(' ');
+                    
+                    // Prepare the challenge and the response
+                    challenge = secure.nextInt();
+                    String EncryptedChallenge = encryption(challenge.toString());
+                    this.response = this.response + 1;
+                    String encryptedResponse = encryption(response.toString());
+                    
                     MsgType msgType = MsgType.valueOf(
                             line.substring(0, sepIdx).toUpperCase());
                     String textData = line.substring(sepIdx + 1);
@@ -131,14 +116,25 @@ public class BasicTextClient
                     }else if(MsgType.FATHER == msgType) {
                         textData = encryption(textData+":"+session);
                     }
-                    toServer.writeObject(new TextMessage(textData, msgType));
+                    
+                    // Send the message to the server
+                    toServer.writeObject(new TextMessage(textData, msgType, EncryptedChallenge, encryptedResponse));
                     toServer.flush();
+                    
+                    // Check the response provided by the server
+                    TextMessage serverMessage = (TextMessage) fromServer.readObject();
+                    Integer serverResponse = Integer.parseInt(decipher(serverMessage.getResponse()));
+                    if(!Objects.equals(serverResponse, this.challenge + 1)){
+                        System.out.println("damn");
+                    }
+                    this.response = Integer.parseInt(decipher(serverMessage.getChallenge()));
+                    
+                    // If the checking is ok then the message of the server is readed
                     String decipheredMessage = decipher((String) fromServer.readObject());
                     if(MsgType.LOGIN == msgType) {
                         String[] splited = decipheredMessage.split(":");
                         decipheredMessage = splited[0];
                         session = splited[1];
-                        System.out.println("session id : " + session);
                     }
                     System.out.println(decipheredMessage);
                 }
