@@ -1,0 +1,289 @@
+Excercice algo association
+
+Excercice 1
+
+17 -> 2, 22 -> 7, 36 -> 6, 55 -> 10, 21 -> 6, 152 -> 2, 64 -> 4, 63 -> 3, 10 -> 10, 32 -> 2
+
+ , , 17, 152, 64, 63,  36, 22, 21, 32, 55, 10, , , , |
+
+Après suppression de 55
+
+ , , 17, 152, 64, 63, 36, 22, 21, 32, 10, , , , , |	 
+ 
+ Après suppression de 36
+ 
+ , , 17, 152, 64, 63, 21, 22, , 32, 10, , , , , |
+ 
+ Après suppression de 152
+ 
+ , , 17, 32, 64, 63, 21, 22, , , 10, , , , , |
+ 
+Méthode chainage
+
+ ,	, 17, 63, 64,	, 36, 22,	,	, 55,	,	,	,	|
+	  152				  21		  10
+	  2
+	  
+Après suppression de 55
+
+ ,	, 17, 63, 64,	, 36, 22,	,	, 10,	,	,	,	|
+	  152				  21		  
+	  2
+	 
+Après suppression de 36
+
+ ,	, 17, 63, 64,	, , 22,	,	, 10,	,	,	,	|
+	  152				21		  
+	  2
+	 
+Après suppression de 152
+
+ ,	, 17, 63, 64,	, , 22,	,	, 10,	,	,	,	|
+	  2				    21		  
+	  
+excercice 2
+
+excercice 3
+
+algo statMembre(fichMembre : FichierEntrée de Membre) --> String
+
+	enr : Membre
+	listKeys : List<String>
+	compteur : Map<String, int>
+	compteur <-- new Map<String, int>()
+	plusGrandeVille : String
+	i : int 
+	
+	fichMembre.open()
+	enr <-- fichMembre.read()
+	
+	while NON fichMemebre.EOf()
+		if(compteur.contains(enr.ville())
+			compteur.setElement(enr.ville(), compteur.value(enr.ville()) + 1)
+		else
+			compteur.setElement(enr.ville(), 1)
+	    end if else
+		enr <-- fichMembre.read()
+	end while
+	
+	fichMembre.close()
+	
+	listKeys <-- compteur.keyList()
+	plusGrandeVille <-- liste.get(1)
+	
+	for i from 2 to liste.size() 
+		if(compteur.value(plusGrandeVille) < compteur.value(liste.get(i))
+			plusGrandeVille <-- liste.get(i)
+		end if
+	end for
+	
+	return plusGrandeVille
+	
+end statMembre
+
+excercice 4
+
+class ListMap implement Map<K, T>
+
+private :
+	
+	map : array of 1000 LinkedList<Element<K, T>>
+		
+public :
+
+	setElement(key : K, value : T)
+	
+		map[h(key)].insererTête(new Element<key, value>)
+		
+	end setElement
+	
+	getValue(key : K) --> T
+	
+		list : LinkedList<Element<K, T>>
+		list <-- map[h(key)]
+		current : listElement<Element<K, T>>
+		current <-- list.getFirst()
+		
+	    while(current != null)
+			if(current.value() == key)
+				return current.value().value()
+			end if
+			current <-- current.next()
+		end while
+		
+		return null;
+		
+	end getValue
+	
+	delete(key : K)
+		
+		list : LinkedList<Element<K, T>>
+		list <-- map[h(key)]
+		current : listElement<Element<K, T>>
+		
+		if(list.first().value() == key)
+			list.deleteFirst()
+		end if
+		
+		current <-- list.first()
+		
+		while(current.next() != null)
+			if(current.next().value() == key)
+				deleteAfter(current)
+			end if
+			current <-- current.next()
+		end while
+		
+	end delete
+	
+	contains(key : K) --> boolean
+		
+		list : LinkedList<Element<K, T>>
+		list <-- map[h(key)]
+		current : listElement<Element<K, T>>
+		current <-- list.getFirst()
+	
+		while(current != null)
+			if(current.value() == key)
+				return true
+			end if
+			current <-- current.next()
+		end while
+		
+		return false
+		
+	end contains
+	
+	size() --> int
+	
+		keyCounter : int <-- 0
+		i : int
+		
+		for i from 1 to 1000
+			counter : int <-- 0
+		end for
+		
+		return keyCounter
+		
+	end size
+	
+	keyList() --> list<K>
+	
+		keyList : list<K>
+		keyList <-- new list<K>
+		i : int
+		
+		for i from 1 to 1000
+			if(map[i] != null)
+				keyList.add(map[i])
+			end if
+		end for
+		
+		return keyList
+		
+	end keyList
+	
+end listMap
+
+excercice 5
+
+class Stock()
+	
+private :
+
+	stock : Map<Integer, Article>
+	
+public : 
+
+	constructor Stock(articles : List<Article>)
+		stock <-- new Map<Integer, Article>()
+		
+		foreach article of articles
+			stock.setElement(article.code(), article)
+		end foreach
+	end constructor
+
+	majStock(articles : list<Article>) --> void
+		foreach article of articles
+			stock.setElement(article.code(), article)
+		end foreach
+	end majStock
+	
+	getQuantité(code : int) --> int
+		return stock.getValue(code).getQuantité()
+	end getQuantité
+	
+	getLibellé(code : int) --> String
+		return stock.getValue(code).libellé()
+	end getLibellé
+	
+	getPrix(code : int) --> double
+		return stock.getValue(code).prix()
+	end getPrix
+	
+	getCodesArticles() --> list<Integer>
+		return stock.keyList()
+	end getCodesArticles
+	
+	evaluate(panier : List<Achat>) --> double
+		price : double
+		price <-- 0
+		
+		foreach achat of panier
+			price <-- price + getPrix(achat.code()) * achat.quantite()
+		end foreach
+		
+		return price	
+	end evaluate
+	
+end class
+
+ex 6 hotel cactus
+
+--> renvoyer une liste de Data --> nom : string, adresse : string, taux : int
+--> on recoit 3 liste de Personne --> nom : string, clientID : string, adresse : string
+
+algo hotelCactus(listeP, listL, listeA : List<Personne>) --> List<Data>
+
+	client : Map<String, Personne>
+	client <-- new Map<String, Personne>()
+	
+	compteur : Map<String, Integer>
+	compteur <-- new Map<String, Integer>()
+	
+	count(listeP, compteur, client)
+	count(listeL, compteur, client)
+	count(listeA, compteur, client)
+	
+	listKey : List<String>
+	listKey <-- compteur.key()
+	dataList : List<Data>
+	dataList <-- new List<Data>
+	
+	foreach key in listKey
+		if(compteur.value(key) == 2)
+			dataList.add(new Data(client.value(key).nom(), client.value(key).adresse(), 25)
+		else if (compteur.value(key) == 3)
+			dataList.add(new Data(client.value(key).nom(), client.value(key).adresse(), 50)
+		end if
+	end for each
+	
+	return dataList
+	
+end hotelCactus
+
+algo count(list : List<Personne>, compteur : Map<String, Integer>, client : Map<String, Personne>) --> void
+
+	foreach personne in list
+		if(client.content(personne.clientID())
+			compteur.setElement(personne.clientID(), compteur.value(personne.clientID()) + 1)
+		else 
+			compteur.setElement(personne.clientID(), 1)
+			client.setElement(personne.clientID(), personne)
+		end if
+	end foreach
+	
+end count
+	
+		
+		

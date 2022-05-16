@@ -44,19 +44,19 @@ int main()
 
 //    cout << "file created poooog" << endl;
 
-    std::ifstream myfile;
-    myfile.open("");
-    std::string s;
+//    std::ifstream myfile;
+//    myfile.open("");
+//    std::string s;
 
-    if(myfile.is_open()) {
-        while(myfile >> s) {
-            cout << s << endl;
-        }
-        myfile.close();
-    }else
-    {
-        cout << "wtf man" << endl;
-    }
+//    if(myfile.is_open()) {
+//        while(myfile >> s) {
+//            cout << s << endl;
+//        }
+//        myfile.close();
+//    }else
+//    {
+//        cout << "wtf man" << endl;
+//    }
 
 //    pos.getX() > (int)(this->_board.size()/2.0 + 0.5) && pos.getX() < (int)this->_board.size() - 1
 //                    && pos.getY() > 0 && pos.getY() < (int)this->_board.size() - 1;
@@ -79,6 +79,11 @@ int main()
 //    ptr[0] = 1;
 //    cout << ptr[0] << endl;
 //    delete(ptr);
+
+    //int i = TestValue::LOL;
+    int test = (1+1);
+    int test = (1+1)%2;
+    cout << test << endl;
 
     return 0;
 }

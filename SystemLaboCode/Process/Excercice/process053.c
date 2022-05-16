@@ -7,30 +7,30 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 
-int main ()
-{       
-        int fd;
+int main(void)
+{
         char ligne[257];
         char *tokens[100];
         char errmsg[200];
-        printf("$ Commande ? ");
+        printf("$ Commande ?");
         fgets(ligne,256,stdin);
-        while (strcmp(ligne,"exit\n"))
+        while(strcmp(ligne,"exit\n"))
         {
-                fd = open("out", O_WRONLY | O_CREAT | O_APPEND, 0644);
                 if(fork() == 0)
                 {
-                        char* home = getenv("HOME");
-                        int ok = chdir(home);
-                        dup2(fd, 1);
-                        close(fd);
+                        chdir(getenv("HOME"));
+                        if(fork() == 0)
+                        {
+                                chdir("..");
+                                execlp("ls", "ls", NULL);
+                                exit(1);
+                        }
+                        wait(0);
                         execlp("ls", "ls", NULL);
-                        exit(0);
+                        exit(1);
                 }
-                close(fd);
                 wait(0);
-                printf("$ Commande ? ");
+                printf("$ Command ?\n");
                 fgets(ligne,256,stdin);
         }
-        exit(0);
 }

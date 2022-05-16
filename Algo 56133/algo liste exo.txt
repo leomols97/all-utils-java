@@ -1,0 +1,342 @@
+algo tassementListe( l LinkedList<int>) --> void //excercice 7
+	if(! l.isEmpty){
+	
+		current <-- getPremier()
+		while(current.getNext() != null){
+			if(current.getValue() == current.getNext.getValue()){
+				l.deleteAfter(current);
+			}else {
+				current = current.next();
+			}
+		}
+	}
+
+//excercice 8 cas 1	
+algo listeImbriquer( l1 : LinkedList<Integer>, l2 : LinkedList<Integer>) --> LinkedList<Integer>
+	
+	LinkedList<Integer> l3 = new LinkedList<>();
+	
+	if(l1.isEmpty && l2.isEmpty){
+		return l3;
+	} else if( l1.isEmpty) {
+		return l2;
+	} else if( l2.isEmpty) {
+		return l1;
+	}
+	
+	l1CurrentNood = l1.getFirst();
+	l2CurrentNood = l2.getFirst();
+	l3CurrentNood = l3.getFirst();
+		
+	do{
+		if(l1CurrentNood != null){
+		l3.add(l3CurrentNood, l1CurrentNood.getValue());
+		l1CurrentNood = l1CurrentNood.getNext();
+		l3CurrentNood = l3CurrentNood.getNext();
+		}else if(l2CurrentNood != null){
+		l3.add(l3CurrentNood, l2CurrentNood.getValue());
+		l2CurrentNood = l2CurrentNood.getNext();
+		l3CurrentNood = l3CurrentNood.getNext();
+		}
+	}while(l1CurrentNood != null || l2CurrentNood != null);
+	
+	return l3;
+
+// cas 2
+
+algo ListeImbriquer2 (LinkedList<Integer> l1, LinkedList<Integer> l2) --> LinkedList<Integer>
+
+	if(l1.isEmpty && l2.isEmpty){
+		return l3;
+	} else if( l1.isEmpty) {
+		return l2;
+	} else if( l2.isEmpty) {
+		return l1;
+	}
+	
+	l1CurrentNood = l1.getFirst();
+	l2CurrentNood = l2.getFirst();
+	
+	do{
+		if(l2CurrentNood != null){
+			l1.addAfter(l2CurrentNood, l2CurrentNood.getValue());
+			l2CurrentNood = l2CurrentNood.getNext();
+			if(l1CurrentNood.getNext().getNext() != null){
+				l1CurrentNood = l1CurrentNood.getNext().getNext();
+			}else {
+				l1CurrentNood = l1CurrentNood.getNext();
+			}
+	}while(l1CurrentNood != null && l2CurrentNood != null);
+	
+	if(l1.size() > l2.size()){
+		return l1;
+	
+ex 1 -------------------
+1.
+
+algo addInLinkedList(list : LinkedList<T>, val : T) 
+
+	currentNode : Node<T>
+	current <-- list.getFirst()
+	
+	while(currentNode.getNext() != null)
+		currentNode <-- currentNode.getNext
+	end while
+	
+	list.insertAfter(currentNode, val)
+	
+end addInLinkedList
+
+2.
+
+algo searchValue(list : LinkedList<T>, val : T) --> Node
+
+	currentNode : Node<T>
+	currentNode <-- list.getFirst()
+	
+	while(currentNode != null)
+		if(currentNode.getValue() == val)
+			return currentNode
+		end if
+		currentNode <-- currentNode.getNext()
+	end while
+	
+	return currentNode
+	
+end searchValue
+
+3.
+
+algo isThereValue(list : LinkedList<T>, val : T) --> boolean
+
+	currentNode : Node<T>
+	currentNode <-- list.getFirst()
+	
+	while(currentNode != null)
+		if(currentNode.getValue() == val)
+			return true
+		end if
+		currentNode <-- currentNode.getNext()
+	end while
+	
+	return false
+	
+end isThereValue
+
+4.
+
+algo deleteFromList(list : LinkedList<T>, val : T) --> boolean
+
+	if(list.getFirst.getValue == val)
+		list.deleteFirst()
+		return true
+	end if
+
+	currentNode : Node<T>
+	currentNode <-- list.getFirst()
+	
+	while(currentNode.next() != null)
+		if(currentNode.next().value() == val)
+			list.deleteAfter(currentNode)
+			return true
+		end if
+	end while
+	
+	return false
+	
+end deleteFromList
+
+5.
+
+algo deleteAllOccurence(list : LinkedList<T>, val : T) --> int
+
+	numberDelete : int
+	numberDelete <-- 0
+	
+	while(list.getFirst.getValue == val)
+		list.deleteFirst()
+		numberDelete++
+	end while
+
+	currentNode : Node<T>
+	currentNode <-- list.getFirst()
+	
+	while(currentNode.next() != null)
+		if(currentNode.next().value() == val)
+			list.deleteAfter(currentNode)
+			numberDelete++
+		end if
+	end while
+	
+	return numberDelete
+	
+end deleteAllOccurence
+
+ex 2 le grand nettoyage
+
+algo grandNettoyage(list : LinkedList<T>)
+
+	array : array of int
+	array <-- new array of 10 int
+	
+	currentNode : Node<T>
+	currentNode <-- list.getFirst
+	
+	while(currentNode != null)
+		array[currentNode.getValue]++
+	end while
+	
+	occurence <-- biggestOccurence(array)
+	
+	deleteAllOccurence(list, occurence)
+	
+end grandNettoyage
+
+algo biggestOccurence(array : Array of int) --> int
+
+	biggestOccurence : int
+	biggestOccurence <-- 0
+
+	for(int i = 1; i < array.lenght; i++)
+		if(array[i] >= array[biggestOccurence])
+			biggestOccurence <-- i
+		end if
+	end for
+	
+	return biggestOccurence
+	
+end biggestOccurence
+
+algo deleteAllOccurence(list : LinkedList<T>, val : T) --> void
+	
+	while(list.getFirst.getValue == val)
+		list.deleteFirst()
+	end while
+
+	currentNode : Node<T>
+	currentNode <-- list.getFirst()
+	
+	while(currentNode.next() != null)
+		if(currentNode.next().value() == val)
+			list.deleteAfter(currentNode)
+		end if
+	end while
+	
+end deleteAllOccurence
+
+ex 5 liste bidirectionnelle implementation
+
+ex 7 tassement
+
+algo tassement(list : linkedList<Ineteger>)
+
+	currentNode : Node<Ineteger>
+	currentNode <-- list.getFirst()
+	
+	while(currentNode != null)
+		while(current.next() != null && current.next().value() == currentNode.value)
+			list.deleteAfter(currentNode)
+		end while
+		currentNode <-- currentNode.next()
+	end while
+	
+end tassement
+
+ex 8 interclassement des listes
+
+algo interclassement1(l1 : LinkedList<T>, l2 : LinkedList<T>) --> LinkedList<T>
+
+	if(l1.empty && l2.empty)
+		return l1
+	else if(l1.empty)
+		return l2
+	else if(l2.empty)
+		return l1
+	end if
+
+	l3 : LinkedList<T>
+	l3 <-- new LinkedList<T>
+																	(3 5 7)  (7 8 9)
+	l3.insertFirst(l1.first.value)
+	currentNode : Node
+	currentNode <-- l3.first()
+	l3.insertAfter(currentNode, l2.first().value())
+	currentNodel1 : Node<T>
+	currentNodel1 <-- l1.first()
+	currentNodel2 : Node<T>
+	currentNodel2 <-- l2.first()
+	
+	while(currentNodel1.next() != null && currentNodel2.next() != null)
+		l3.insertAfter(currentNode, currentNodel1.next().value())
+		currentNode <-- currentNode.next()
+		l3.insert(currentNode, currentNodel2.next().value())
+		currentNode <-- currentNode.next()
+		currentNodel2 <-- currentNodel2.next()
+		currentNodel1 <-- currentNodel1.next()
+	end while
+	
+	while(currentNodel1.next() != null)
+		l3.insertAfter(currentNode, currentNodel1.next().value())
+		currentNode <-- currentNode.next()
+		currentNodel1 <-- currentNodel1.next()
+	end while
+	
+	while(currentNodel2.next() != null)
+		l3.insertAfter(currentNode, currentNodel2.next().value())
+		currentNode <-- currentNode.next()
+		currentNodel2 <-- currentNodel2.next()
+	end while
+	
+	return l3
+	
+end interclassement1
+
+algo interclassement2(l1 : LinkedList<T>, l2 : LinkedList<T>) --> LinkedList<T>
+
+	if(l1.empty && l2.empty)
+		return l1
+	else if(l1.empty)
+		return l2
+	else if(l2.empty)
+		return l1
+	end if
+	
+	curNode : Node<T>
+	curNode <-- l1.first
+	curNode2 : Node<T>
+	curNode2 <-- l2.first()
+	
+	while(curNode2 != null)
+		l1.insertAfter(curNode, curNode2.value)
+		curNode2 <-- curNode2.next()
+		if(curNode.next().next() != null)
+			curNode <-- curNode.next().next()
+		else 
+			curNode <-- curNode.next()
+		end if
+	end while
+	
+	return l1
+	
+end interclassement2
+	
+ex 9 fusion de liste
+
+	if(l1.empty && l2.empty)
+		return l1
+	else if(l1.empty)
+		return l2
+	else if(l2.empty)
+		return l1
+	end if
+	
+	l3 : LinkedList<T>
+	l3 <-- new LinkedList<T>
+	curNodel1 : Node<T>
+	curNodel1 <-- l1.first()
+	curNodel2 : Node<T>
+	curNodel2 <-- l2.first()
+	curNode : Node<T>
+	
+	if(
+	

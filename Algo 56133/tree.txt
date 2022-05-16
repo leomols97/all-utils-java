@@ -1,0 +1,741 @@
+chaine --> ensemble successif d'arrête.
+
+C'est dans le cas d'un graphe non orientée.
+
+Dans un graphe orientée --> des arcs
+
+Un père peut avoir un ou plusieurs fils
+
+Les fils qui n'ont pas de successeur --> feuille ou noeud terminal.
+
+un noued a un seul père a l'eception de la racine.
+
+2 noeuds meme père --> frère
+
+En info, les arbres toujours orientée.
+
+Distance ou profondeur --> distance qui sépare le noeud et la racine.
+
+Hauteur --> niveau maximum a partir de la racine.
+
+liste --> arbre dégénéré
+
+arbre n-aire --> arbre avec au plus n fils
+
+arbre complet --> toutes les feuilles ont le meme niveau et les noeuds interner et racine meme nbr de fils
+
+Parcours en largeur --> file
+
+on parcours niveau par niveau
+
+parcours en profondeur --> pile
+
+on commence par la racine et on déscend jusqu'au bout puis remonter.
+
+file --> / = enleve/évaluer --> arbre page 65
+
+A/ B/ C/ D/ E/ F/ G/ H/ I/ J/ K/ L/ M/ N/ O/ P/
+
+Pile --> / pop
+
+A/ B/ C/ D/ E/ F/ L/ J/ K/ P/ O/ G/ H/ I/ M/ N/
+
+Type de traitement
+
+traité noued courant puis les fils --> parcours préfixe
+
+traité d'abord les fils puis le noeud courant --> parcours postfixé
+
+-------------------
+
+on peut utiliser un tableau si on connait le nbr de fils maximum
+
+arbre binaire
+
+chaque noeud possède au plus 2 fils --> fils gauches et fils droits
+
+Ex1 -------------------------------------
+
+algo howManyNode(tree : Tree<T>) --> int
+	
+	if(tree.root == null)
+		return 0
+	end if
+	
+	return howManyNodeRecursive(tree.root)
+	
+end howManyNode
+
+algo howManyNodeRecursive(node : Node<T>) --> int
+
+	cpt : int
+	cpt <-- 1
+	
+	foreach child of node.getChildren()
+		cpt += howManyNode(child)
+	end for
+	
+	return cpt
+	
+end howManyNodeRecursive
+
+solus itérative-------------------
+
+algo nodeCount(tree : Tree<T>) -->
+
+	file : File<treeNode<T>> 
+	file <-- new File<nodeTree<T>>
+	currentNode : TreeNode<T>
+	nbNode : int
+	nbNode <-- 0
+
+	if(tree.root() != null)
+		file.enqueue(tree.root())
+	end if
+	
+	while(! file.empty())
+		currentNode <-- file.dequeue
+		node++
+		
+		foreach child of node.getChildren()
+			file.enqueue(child)
+		end foreach
+	end while
+	
+	return nbNode
+
+end nodeCount
+
+ex2 ------------------------------------------
+
+algo howManyLeaf(tree : Tree<T>) --> int
+
+	if(tree.root == null)
+		return 0
+	end if
+	
+	return howManyLeafRecursive(tree.root)
+	
+end howManyLeaf
+
+algo howManyLeafRecursive(node : Node<T>) --> int 
+
+	nbLeaf : int
+	nbLeaf <-- 0
+
+	if(node.nbChildren == 0)
+		return 1
+	else 
+	
+		foreach child of node.getChildren()
+			nbLeaf += howManyLeafRecursive(child)
+		end foreach
+		
+	end ifelse
+	
+	return nbLeaf
+
+end howManyLeafRecursive
+
+ex3 ----------------------------------------
+
+algo heigh(tree : Tree<T>) --> int
+
+	if(tree.root() == null)
+		return 0
+	end if
+	
+	return heighRecursive(tree.root)
+
+end heigh
+
+algo heighRecursive(node : Node<T>) --> int
+
+	heigh : int
+	maxHeigh : int
+	maxHeigh <-- 0
+	
+		foreach child of node.getChildren() 
+		
+			heigh <-- heighRecursive(child)
+			
+			if(heigh > maxHeigh)
+				maxHeigh <-- heigh
+			end if
+			
+		end foreach
+		
+		return maxHeigh += 1
+	
+end heighRecursive
+
+ex4 -----------------------------------------
+
+algo heightProblem (tree : Tree<T>, targetHeigh : int) --> int
+
+	if(tree.root() == null)
+		return 0;
+	end if
+	
+	return heightProblemRecursive(tree.root(), 0, targetHeigh - 1)
+	
+end heightProblem
+
+algo heightProblemRecursive(node : Node<T>, currentHeight : int, targetHeight : int) --> int
+
+	cpt : int
+	cpt <-- 0
+	
+	if(node.nbChildren() == 0)
+		return 0
+	else if(currentHeight == targetHeight)
+		return node.nbChildren()
+	end if else
+	
+	foreach child of node.getChildren()
+		cpt += heightProblemRecursive(child, currentHeight + 1, targetHeight)
+	end foreach
+	
+	return cpt
+	
+end heighProblemRecursive
+	
+ex5 ------------------------------------------
+
+algo isCompleteTreeFacade(tree : Tree<T>) --> boolean
+
+	if(tree.root == null)
+		return false
+	end if
+	
+	maxLvl : int
+	maxLvl <-- heighRecursive(tree.root())
+	maxChilds : int
+	maxChilds <-- tree.root.getNbChilds()
+	
+	return isCompleteTreeRecurssif(tree.root(), maxHeigh, maxChild, 0)
+	
+end isCompleteTreeFacade
+
+algo isCompleteTreeRecurssif(node : Node<T>, maxHeight, maxChild, currentHeight : int) --> boolean
+
+	if((node.children().size() == 0 || node.children().size() != maxChild) && currentHeight < maxHeigh)
+		return false
+	else if(node.children().size() == 0 && currentHeight == maxHeigh)
+		return true
+	end if
+	
+	i : int
+	i <-- 0
+	complete : boolean
+	complet <-- true
+	
+	while(complet && i < node.children().size())
+		complet <-- isCompleteTreeRecurssif(node, maxHeigh, maxChild, currentHeight)
+		i++
+	end while
+	
+	return complete
+	
+end isCompleteTreeRecurssif
+
+ex 6 arbre dégénéré ? -------------------------
+
+algo isDegenerateTreeFacade(tree : Tree<T>) --> boolean
+
+	if(tree.root == null)
+		return true
+	end if
+	
+	isDegenerateTreeRecurssif(tree.root())
+	
+end isDegenerateTreeRecurssif
+
+algo isDegenerateTreeRecurssif(node : Node<T>) --> boolean
+
+	if(node.children().size() == 0)
+		return true
+	else if(node.children.size() != 1)
+		return false
+	end if
+	
+	foreach child in node.children()
+		return isDegenerateTreeRecurssif(child)
+	end foreach
+	
+end isDegenerateTreeRecurssif
+
+ex 7 addition -----------------------------------------------
+
+algo additionFacade(tree : Tree<Integer>) --> void
+
+	if(tree.root() == null)
+		throw error
+	end if
+	
+	additionRecursif(tree.root())
+	
+end additionFacade
+	
+algo additionRecursif(node : Node<Integer>) --> void
+
+	somme : int
+	somme <-- 0
+	
+	foreach child in node.children()
+		if(child.value() == null)
+			additionRecursif(child)
+		end if
+		somme <-- somme + child.value()
+	end foreach
+	
+	node.set(somme)
+	
+end additionRecursif
+
+ex 8 combien de valeur ? -----------------------------
+
+algo combienDeValDifFacade(tree : Tree<T>)
+
+	listValue : List<T>
+	listValue <-- new List<T>
+	
+	if(tree.root() != null)
+		combienDeValDifRecursif(tree.root(), listValue)
+		return listValue.size()
+	end if
+	
+end combienDeValDifFacade
+
+algo combienDeValDifRecursif(node : Node<T>, listVal : List<T>) --> void
+
+	if(!contains(listVal, node.value())
+		listVal.add(node.value())
+	end if
+	
+	foreach child in node.children()
+		combienDeValDif(child, listVal)
+	end foreach
+	
+end combienDeValDif
+
+algo contains(listVal : List<T>, val : T) --> boolean
+
+	foreach value in listVal
+		if(value == val)
+			return true
+		end if
+	end foreach
+	
+	return false
+
+end contains
+		
+ex9 ---------------------------------------------
+
+algo isBanaryBalance(tree : Tree<T>) --> boolean
+	
+	if(tree.root == null)
+		return true
+	end if
+	
+	return isBanaryTreeBalanced(tree.root()) >= 0
+	
+end isBanaryBalance
+
+algo isBanaryTreeBalanced(node : Node<T>) --> int
+
+	if(node == null)
+		return 0
+	end if
+	
+	leftHeight : int
+	rightHeight : int
+	balancedFactor : int
+	
+	leftHeight <-- isBanaryTreeBalanced(node.left)
+	rightHeight <-- isBanaryTreeBalanced(node.right)
+	balancedFactor <-- leftHeight - rightHeight
+	
+	if(balancedFactor > 1 && balancedFactor < -1)
+		return - 99
+	else 
+		return compareHeight(leftHeight, rightHeight) + 1
+	end ifElse
+	
+end isBanaryTreeBalanced
+	
+algo compareHeight(a : int, b : int) --> int
+
+	if(a >= b)
+		return a
+	else 
+		return b
+	end ifElse
+	
+end compareHeight
+
+ex 10-------------------------------
+
+algo isEvenBinaryTree(tree : Tree<T>) --> boolean
+
+	if(tree.root == null)
+		return true
+	end if
+	
+	return isEven(tree.root())
+	
+end isEvenBinaryTree
+	
+algo isEven(node : Node<T>) --> boolean
+
+	if((node.left() == null && node.right == null)
+		return true
+	else if(node.left() != null && node.right() != null)
+		return isEven(node.left()) && isEven(node.right())
+	else 
+		return false
+	end if
+	
+end isEven
+	
+end isEvenBinaryTree
+
+ex 11 OXO --------------------------------------------
+
+algo isOXORecursif(node : Node<T>) --> boolean
+
+	// WTF cette excercice
+	
+ex 12 arbre binaire symétrique --------------------------
+
+algo isSymetric(tree : Tree<T>) --> boolean
+
+	if(tree.root() == null)
+		return true
+	else
+		return isSymetric(tree.root(), tree.root())
+	end if
+		
+end isSymetric
+
+algo isSymetricRecursif(node1, node2 : Node<T>) --> boolean
+	
+	if(node1 == null && node2 != null || node1 != null && node2 == null || node1.value() != node2.value())
+		return false
+	else if(node1 == null && node2 == null)
+		return true
+	else
+		return isSymetric(node1.left(), node2.right()) && isSymetric(node1.right(), node2.left())
+	end if
+	
+end isSymetricRecursif
+
+ex 13 arbre binaire ordonnée ? -------------------------------
+
+algo isBinaryTreeOrdered(tree : Tree<T>) --> boolean
+
+	if(tree.root())
+		return true
+	else 
+		return isBinaryTreeOrderedRecursif(tree.root())
+	end if
+	
+end isBinaryTreeOrdered
+
+algo isBinaryTreeOrderedRecursif(node : Node<T>) --> boolean
+
+	if(node == null)
+		return true
+	else if(node.left() != null && node.left().value() > node.value || node.right() != null && node.right().value() < node.value)
+		return false
+	else 
+		return isBinaryTreeOrderedRecursif(node.right()) && isBinaryTreeOrderedRecursif(node.left())
+	end if
+	
+end isBinaryTreeOrderedRecursif
+		
+
+ex 14 -------------------------------
+
+algo findMax(tree : Tree<T>) --> int
+
+	if(tree.root() == null)
+		return erreur
+	end if
+	
+	return findMaxRecursive(tree.root())
+	
+end findMax
+	
+algo findMaxRecursive(node : Node<T>) --> int
+
+	if(node.right() == null)
+		return node.value()
+	end if
+	
+	return findMaxRecursive(node.right())
+	
+end findMaxRecursive
+
+ex 15-----------------------------------
+
+algo dichotomieSearch(tree : Tree<T>, value : T) --> Node
+
+	if(tree.root() == null) 
+		return null
+	end if
+	
+	return dichotomieSearchRecursif(tree.root(), value)
+	
+
+algo dichotomieSearchRecursif(node : Node<T>, value : T) --> Node
+
+	if(node.value() == value)
+		return node
+	else if(node.value() > value)
+		if(node.left() == null)
+			return null
+		end if
+		return dichotomieSearchRecursif(node.left, value)
+	else 
+		if(node.right() == null)
+			return null
+		end if
+		return dichotomieSearchRecursif(node.right(), value)
+	end if
+	
+end dichotomieSearchRecursif
+	
+
+ex 16 ajout de valeur -----------------------------------
+
+algo addValue(tree : Tree<int>, value : int) 
+
+	if(tree.root() == null)
+		tree.setRoot(new Node<T>(value))
+	end if
+	
+	addValueRecursive(tree.root(), value)
+	
+end addValue
+	
+algo addValueRecursive(node : Node<T>, value : T)
+
+	if(value > node.value())
+	
+		if(node.right() == null)
+			node.setRight(new Node<T>(value))
+		else
+			addValue(node.right(), value)
+		end ifelse
+		
+	else if(value < node.value())
+	
+		if(node.left() == null)
+			node.setleft(new Node<T>(value))
+		else
+			addValue(node.left(), value)
+		end ifelse
+		
+	end ifelse
+	
+end addValueRecursive
+
+ex 17 elagage ------------------------------------
+
+algo elagageFacade(tree : Tree<T>, height : int) --> void
+
+	if(tree.root() != null)
+		elagageRecursif(tree, height, 0)
+	end if
+	
+end elagageFacade
+
+algo elagageRecursif(node : Node<T>, height, currentHeight : int) --> void
+
+	if(currentHeight == heigh)
+		node.deleteAllChildren()
+	else 
+		foreach child in node.children()
+			elagageRecursif(child, heigh + 1, currentHeight)
+		end foreach
+	end if
+	
+end elagageRecursif
+
+ex 18------------------------------
+
+1. ---------------------------------------------------------------------
+
+algo printDictionnaryRoot(tree : Tree<T>)
+	
+	if(tree.root() == null)
+		error
+	end if
+	
+	foreach child in tree.root().getChildren()
+		printDictionnaryRecursive(child, "")
+	end foreach
+	
+end printDictionnaryRoot
+
+algo printDictionnaryRecursive(node : Node<T>, word : string)
+	
+	stringBuilder : StringBuilder
+	stringBuilder <-- StringBuilder(word)
+	stringBuilder.append(node.value)
+	
+	foreach child in node.getChildren()
+	
+		if(child.value() == '#')
+			print(word)
+		else 
+			printDictionnaryRecursive(child, stringBuilder.toString)
+		end ifelse
+		
+	end foreach
+	
+end printDictionnaryRecursive
+		
+2. ------------------------------------------------------------------------
+
+algo addWordFacade(tree : Tree<Character>, word : String) --> void
+
+	if(tree.root() == null)
+		tree.setRoot(new Node<Character>()>
+	end if
+	
+	addWordRecursif(tree.root(), word, 0)
+	
+end addWordFacade
+
+algo addWordRecursif(node : Node<Character>, word : String, currentChar : int) --> void
+	
+	if(currentChar == word.lenght() - 1)
+		if(isThereLetter(node.children(), '#') == null)
+			node.addChild(new Node<Character>('#'))
+		end if
+	else
+		tmpNode : Node<Character>
+		tmpNode <-- isThereLetter(node.children(), word.currentChar)
+	
+		if(tmpNode == null)
+			node.addChild(new Node<Character>(word.charAt(currentChar))>)
+			addWordRecursif(node.getChild(node.nbChildren() - 1), word, currentChar + 1)
+		else 
+			addWordRecursif(tmpNode, word, currentChar + 1)
+		end if
+	end if
+		
+end addWordRecursif	
+	
+algo isThereLetter(children : List<Node<Character>>, char : Character) --> Node
+
+	foreach child in children
+		if(child.value() == char)
+			return child
+		end if
+	end foreach
+	
+	return null
+
+end isThereLetter
+
+3. ----------------------------------------------------------------------
+
+algo deleteWordFacade(tree : Tree<Character>, word : String) --> void
+
+	if(tree.root() != null)
+		deleteWordRecursif(tree.root(), word, 0)
+	end if
+
+end deleteWordFacade
+
+algo deleteWordRecursif(node : Node<Character>, word : string, currentPos : int) --> void
+
+	tmpNode : int
+	
+	if(currentPos == word.lenght() - 1)
+		tmpNode <-- isThereLetter(node.children(), '#')
+		node.deleteChild(tmpNode)
+	else 
+		tmpNode <-- isThereLetter(node.children(), word.charAt(currentPos))
+	
+		if(tmpNode != -1)
+			deleteWordRecursif(node.getChild(tmpNode), word, currentPos + 1)
+			if(node.getChild(tmpNode).nbChildren() == 0)
+					node.deleteChild(tmpNode)
+			end if
+		end if
+	end if
+	
+end deleteWordRecursif
+			
+algo isThereLetter(children : List<Node<Character>>, char : Character) --> int
+
+	pos : int
+	pos <-- 0
+
+	foreach child in children
+		if(child.value() == char)
+			return pos
+		end if
+		pos++
+	end foreach
+	
+	return -1
+
+end isThereLetter
+
+ex 19 au fil de l'eau ---------------------------------------------
+
+algo fleuveFacade(tree : Tree<T>, coursDeau : String) --> void
+
+	if(tree.root() != null)
+		listFleuve : LinkedList<String>
+		listFleuve <-- new LinkedList<String>
+		if(fleuveRecursif(tree.root(), coursDeau, listFleuve))
+			printList(listFleuve)
+		else
+			print("impossible d'aller au fleuve principale")
+	end if
+	
+end fleuveFacade
+
+algo fleuveRecursif(node : Node<String>, coursDeau : String, listFleuve : LinkedList<String>) --> boolean
+
+	trouve : boolean
+	trouve <-- false
+	i : int
+	i <-- 0
+
+	listFleuve.insertHead(node.value())
+	
+	if(coursDeau == node.value())
+		return true
+	else 
+		while(!trouve && i < node.nbChildren())
+			trouve <-- fleuveRecursif(node.getChild(i), coursDeau, listFleuve)
+		end while
+		if(trouve)
+			return true
+		else
+			listFleuve.deleteHead()
+			return false
+		end if
+	end if
+	
+end fleuveRecursif
+
+algo printList(listFleuve : LinkedList<String>) --> void
+
+	node : Node<Sting>
+	node <-- listFleuve.head()
+	
+	while(node != null)
+		print(node.value())
+		node <-- node.next()
+	end while
+	
+end printList

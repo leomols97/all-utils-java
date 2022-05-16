@@ -1,0 +1,721 @@
+graphe non orienté --> représenté couple par un ensemble {} arête
+
+graphe orienté --> représenté couple per des () arc
+
+noued adjacent --> un arc les relie 
+
+aussi quand il ont un noued commun
+
+graphe complet chaque noued est adjacent a tous les noeuds
+
+degré --> nombre de noeuds reliée a ce noeud
+
+degré entrant nb d'arc entrant
+
+degré sortant nombre d'arc sortant du noeud
+
+puit --> noeud qui n'a pas de sortie
+
+source --> noeud qui n'a pas d'entrée
+
+noeud isolée --> pas d'entrée/sortie
+
+chemin --> suite d'arc adjacent
+
+chemin simple --> tous les liens sont distincts
+
+chemin élémentaire --> tous les noeuds (sauf eventuellement arrivée et départ) sont distincts
+
+longueur --> nombre de lien d'un chemin 
+
+distance --> chemin le plus court
+
+diamètre --> chemin le plus longueur
+
+circuit/cycle --> chemin fermée
+
+graphe connexe --> il existe toujours un chemin entre 2 noeud quelconque
+
+pas de cycle/ boucle --> arbre
+
+tous les composant sont des arbres --> forêt
+
+addition --> ou
+
+V + F = V
+
+multiplication --> et
+
+puissance de la matrice d'adjacence --> noeud qui ont un chemin de taille puissance k
+
+m^2 --> matrice des noued avec un chemin de taille 2 exactements
+
+utiliser des états pour ne pas boucler --> prêt - attente - traitée
+
+Roy warshall
+
+A[i, j] ou A[i, k] et A[k, j]
+
+i --> ligne actuel, k --> colonne de A
+
+k --> ligne de A, j --> colonne qui nous interesse 
+
+ex 1 --------------------------------------------------------------------------
+
+2.
+
+première question : est ce que je peux acceder au noeud K
+si oui, meme accessibilité que noeud K
+si non, tant pis go prochain.
+
+		A	B	C	D	E
+
+	 A  f   v   f   v   f
+
+	 B  f   f   v   f   f
+
+M0 = C  v   f   f   f   f
+
+	 D  f   f   f   f   v
+	
+	 E  v   f   f   f   f
+	 
+	 
+	 
+	 	A	B	C	D	E
+
+	 A  f   v   f   v   f
+
+	 B  f   f   v   f   f
+
+M1 = C  v   v   f   v   f    k = 1, on s'interresse a la ligne et colonne de A
+
+	 D  f   f   f   f   v
+	
+	 E  v   v   f   v   f
+	 
+	 
+		A	B	C	D	E
+
+	 A  f   v   v   v   f
+
+	 B  f   f   v   f   f
+
+M2 = C  v   v   c   v   f    k = 2, on s'interresse a la ligne et colonne de B
+
+	 D  f   f   f   f   v
+	
+	 E  v   v   v   v   f
+	 
+	 
+	 	A	B	C	D	E
+
+	 A  v   v   v   v   f
+
+	 B  v   v   v   v   f
+
+M3 = C  v   v   c   v   f    k = 3, on s'interresse a la ligne et colonne de C
+
+	 D  f   f   f   f   v
+	
+	 E  v   v   v   v   f
+	 
+	 
+	 	 A	B	C	D	E
+
+	 A  v   v   v   v   v
+
+	 B  v   v   v   v   v
+
+M4 = C  v   v   c   v   v    k = 4, on s'interresse a la ligne et colonne de D
+
+	 D  f   f   f   f   v
+	
+	 E  v   v   v   v   v
+	 
+	 
+	 
+	 	A	B	C	D	E
+
+	 A  v   v   v   v   v
+
+	 B  v   v   v   v   v
+
+M5 = C  v   v   v   v   v    k = 5, on s'interresse a la ligne et colonne de E
+
+	 D  v   v   v   v   v
+	
+	 E  v   v   v   v   v
+	 
+3. 
+	
+On aura testé l'accessibilité des trois premiers noeuds.
+
+ex 3 --------------------------------------------------------------------------
+1.
+
+
+	A	B	C	D	E	F
+
+A	v	v	v	v   v   v
+
+B   v   v   v   v   v   v
+
+C   f   f   f   f   f   f
+
+D   v   v   v   v   v   v
+
+E   v   v   v   v   v   v
+
+F   v   v   v   v   v   v
+
+2.
+
+Non car chaque noeud n'est pas relié a tous les autres noeuds, le noeud C.
+
+3.
+
+Il y a un puit qui est le noeud C.
+
+4. 
+
+oui
+
+B-A-F-D-E
+
+a la 6ième étape de l'algorithme.
+
+5.
+
+A	B	C	D	E	F
+	*		*		-
+*	-   *
+			-	*
+-
+		-
+				-
+
+liste F- B- D- A- C- E-
+
+6.
+
+A	B	C	D	E	F
+	*		*		-
+			-   *
+				-
+*	-	*
+		-
+-
+
+Pile : F- B- D- E- A- C-
+
+pret +
+attente *
+traité -
+
+
+ex 4 --------------------------------------------------------------------------
+
+il faut au minimum n arcs
+
+ex 5 --------------------------------------------------------------------------
+
+si une matrice d'accessibilité est vrai, sa matrice adjacente est vrai
+si une matrice d'accessibilité est faux, sa matrice adjacente est faux
+
+ex 6 n-gone -----------------------------------------------------------------
+
+algo n-gone(n : int) --> array of n * n boolean
+
+	tab : array of n * n boolean 
+	tab <-- new array of n * n boolean
+	start : int
+	
+	for i from 0 to n - 1
+	
+		start <-- i - 2
+		
+		if(start < 0)
+			start <-- n - start - 1
+		end if
+		
+		for j from 0 to 3
+			tab[i][start%n] <-- true
+			start++
+		end for 
+		
+	end for
+	
+	return tab
+	
+end n-gone
+		
+ex 7 suppression d'arrête -------------------------------------
+
+algo deleteArrête(valNoeud : array of n int, M : array n * n boolean) --> void
+
+	for i from 0 to n - 1
+		for j from 0 to n - 1
+			if(M[i][j] == true && valNoeud[i] % 2 == 0 && valNoeud[j] % 2 == 0)
+				M[i][j] <-- false
+			end if
+		end for
+	end for
+	
+end deleteArrête
+
+ex 8 matrice d'ajacence --> tableau de liste ----------------------
+
+cas 1 --> avec liste simple
+
+algo toArrayOfList(M : array of n * n boolean) --> List<Integer>
+
+	tabList : array of n List<Integer>
+	tabList <-- new array of n List<Integer>
+	
+	for i from 0 to M.lenght() - 1
+		for j from 0 to M.lenght() - 1
+			if(M[i][j] == true)
+				tab[i].add(j)
+			end if
+		end for
+	end for
+	
+	return tabList
+	
+end toArrayOfList
+
+cas 2 --> avec linked list
+
+algo toArrayOfLinkedList(M : array of n * n boolean) --> LinkedList<Integer>
+
+	tabList : array of n LinkedList<Integer>
+	tabList <-- new array of n LinkedList<Integer>
+	
+	for i from 0 to M.lenght() - 1
+		for j from 0 to M.lenght() - 1
+			if(M[i][j] == true)
+				tab[i].addHead(j)
+			end if
+		end for
+	end for
+	
+	return tabList
+	
+end toArrayOfLinkedList
+
+ex 9 tableau liste --> matrice adjacente
+
+cas 1 --> liste simple
+
+algo toMatrice(arrayOfList : array of n List<Integer>) --> array of n * n boolean
+
+	matrice : array of arrayOfList.lenght() * arrayOfList.lenght() boolean
+	matrice <-- new array of arrayOfList.lenght() * arrayOfList.lenght() boolean
+	
+	for i from 0 to arrayOfList.lenght() - 1
+		tmpList : List<Integer>
+		tmpList <-- arrayOfList[i]
+		for j from 0 to tmpList.size() - 1
+			matrice[i][tmpList.getAt(j)] <-- true
+		end for
+	end for
+	
+	return matrice
+
+end toMatrice
+
+cas 2 --> linked list
+
+algo toMatrice(arrayOfList : array of n LinkedList<Integer>) --> array of n * n boolean
+
+	matrice : array of arrayOfList.lenght() * arrayOfList.lenght() boolean
+	matrice <-- new array of arrayOfList.lenght() * arrayOfList.lenght() boolean
+	
+	for i from 0 to arrayOfList.lenght() - 1
+		tmpNode : Node<Integer>
+		tmpNode <-- arrayOfList[i].head()
+		while tmpNode != null
+			matrice[i][tmpNode.value()] <-- true
+		end while
+	end for
+	
+	return matrice
+
+end toMatrice
+
+ex 10 degré max ----------------------------------------------------------------
+
+cas 1 --> matrice ajacente symétrique
+
+algo maxDegre(matrice : array of n * n boolean) --> int
+
+	biggestNode : int
+	biggestDegre : int
+	biggestDegre <-- 0
+	tmpCounter : int
+	
+	for i from 0 to matrice.lenght() - 1
+		tmpCounter <-- 0
+		for j from 0 to matrice.lenght() - 1
+			if(matrice[i][j])
+				tmpCounter++
+			end if
+		end for
+		if(tmpCounter > biggestDegre)
+			biggestDegre <-- tmpCounter
+			biggestNode <-- i
+		end if
+	end for
+	
+	return biggestNode
+	
+end maxDegre
+
+cas 2 --> matrice triangulaire supérieur
+
+algo maxDegre(matrice : array of n * n boolean) --> int
+
+	biggestNode : int
+	biggestDegre : int
+	biggestDegre <-- 0
+	tmpCounter : int
+	
+	for i from 0 to matrice.lenght
+		tmpCounter <-- 0
+		
+		tmpCounter <-- parcoursTop(matrice, i) + parcoursRight(matrice, i)
+		
+		if(tmpCounter > biggestDegre)
+			biggestDegre <-- tmpCounter
+			biggestNode <-- i
+		end if
+		
+	end for
+	
+	return biggestNode
+	
+end maxDegre
+
+algo parcoursTop(matrice : array of n * n boolean, currentNode : int) --> int
+
+	tmpCounter : int
+
+	for i from currentNode to 0
+		if(matrice[i][currentNode])
+			tmpCounter++
+		end if
+	end for
+	
+	return tmpCounter
+	
+end parcoursTop
+
+algo parcoursRight(matrice : array of n * n boolean, currentNode : int) --> int
+
+	tmpCounter : int
+
+	for j from currentNode to matrice.lenght() - 1
+		if(matrice[currentNode][j])
+			tmpCounter++
+		end if
+	end for
+	
+	return tmpCounter
+	
+end parcoursRight
+
+ex 11
+
+algo maxDegré(matrice : array of n * n boolean) --> int
+
+	max : int
+	max <-- 0
+	tmpValue : int
+	tmpValue <-- 0
+	currentNode : int 
+	currentNode <-- 0
+	
+	while(currentNode < matrice.lenght())
+		tmpValue <-- parcoursColumnRow(matrice, currentNode)
+		
+		if(tmpValue > max)
+			max <-- tmpValue
+		end if
+		
+		currentNode++
+		
+	end while
+	
+	return max
+	
+end maxDegré
+		
+algo parcoursColumnRow(matrice : array of n * n boolean, currentNode : int) --> int
+	
+	tmpValue : int
+	tmpValue <-- 0
+	
+	for(int i = 0; i < matrice.lenght; i++)
+			if(matrice[i][currentNode] == true)
+				value++
+			end if
+			
+			if(matrice[currentNode][i] == true)
+				value++
+			end if
+	end for
+
+	return value
+
+end parcoursColumnRow
+
+ex 12
+
+algo chercherSource(matrice : array of n * n boolean) --> int //checker puit voir ligne
+
+	nbSource : int
+	nbSource <-- 0
+	IsAllFalse : boolean 
+	currentNode : int
+	currentColumn : int
+	currentNode <-- 0
+	
+	while(currentNode < matrice.lenght)
+	
+		isAllFalse <-- true
+		currentColumn <-- 0
+		
+		while(currentColumn < matrice.lenght && isAllFalse)
+			if(matrice[currentNode][currentColumn] == true)
+				isAllFalse = false
+			end if
+		end while
+		
+		if(isAllFalse)
+			nbSource++
+		end if
+		
+		currentNode++
+		
+	end while
+	
+	return nbSource
+	
+end chercherSource
+	
+	
+algo chercherPuit(matrice : array of n * n boolean) --> int // checker source voir colonne
+
+	nbPuit : int
+	nbPuit <-- 0
+	IsAllFalse : boolean 
+	currentNode : int
+	currentRow : int
+	currentNode <-- 0
+	
+	while(currentNode < matrice.lenght)
+	
+		isAllFalse <-- true
+		currentRow <-- 0
+		
+		while(currentRow < matrice.lenght && isAllFalse)
+			if(matrice[currentRow][currentNode] == true)
+				isAllFalse = false
+			end if
+		end while
+		
+		if(isAllFalse)
+			nbPuit++
+		end if
+		
+		currentNode++
+		
+	end while	
+	
+	return nbPuit
+	
+end chercherPuit
+	
+ex 13
+
+Roy warshall
+
+complexité
+
+algorithme RoyWarshall(M↓, A↑ : tableaux[1 à n, 1 à n] de booléens)
+	i, j, k : entiers
+	A ← M // initialisation de A avec une copie de la matrice d’adjacence
+	pour k de 1 à n faire --> O n
+	// calcul des éléments de Ak
+		pour i de 1 à n faire	--> O n
+			pour j de 1 à n faire 	--> O n
+				A[i, j] ← A[i, j] ou (A[i, k] et A[k, j]) --> O 1
+			fin pour
+		fin pour
+	fin pour
+	// A contient à présent la matrice d’accessibilité
+fin algorithme
+
+au final la complexité c'est O n^3
+
+puissance de matrice 
+
+1 multiplication de matrice O(n^3)
+
+2 multiplication des matrice (n-1 fois)
+
+	(n-1) * O(n^3) = O(n^4)
+	
+3 somme d'une matrice --> O(n^2)
+
+4 n - 1 sommes
+	(n-1) * O(n^2) = O(n^3)
+	
+O(n^4) + O(n^3) = O(n^4)
+
+ex 14 accéssibilité via tableau de liste -----------------------------
+
+algo 
+
+ex 15 parcours par contagions ----------------------------------------
+
+algo parcoursContagion(arrayOfLinkedList : array of n List<Node<T>>, node : int) --> void
+
+	file : fileList<Node<T>>
+	file <-- new fileList<Node<T>>()
+	
+	foreach node in arrayOfList[node]
+		file.queue(node)
+	end foreach
+	
+	tmpNode : Node<T>
+	
+	while(!file.empty())
+		tmpNode.dequeue()
+		tmpNode.setTraité()
+		foreach node in tmpNode.voisin
+			if(node.etat() != traité)
+				file.queue(node)
+			end if
+		end foreach
+	end while
+
+end parcoursContagion	
+
+ex 16 --> parcours par sondage
+
+algo isRootFacade(matrice : array of n * n boolean, node : int) --> boolean
+
+	if(node < 0 || node > matrice.lenght - 1)
+		throw error
+	end if
+	
+	arrayEtat : array of n Etat
+	arrayEtat <-- new array of n Etat
+	
+	isRootRecursif(matrice, node, arrayEtat)
+	
+	return isRoot(arrayEtat)
+
+end isRootFacade
+
+algo isRootRecursif(matrice : array of n * n boolean, node : int, arrayEtat : array of n Etat) --> void
+
+	arrayEtat[node] <-- traité
+	
+	for j from 0 to n - 1
+		if(matrice[node][j] && arrayEtat[j] != traité)
+			isRootRecursif(matrice, j, arrayEtat)
+		enf if
+	end for
+
+end isRootRecursif
+
+algo isRoot(arrayEtat : array of n Etat) --> boolean
+
+	foreach etat in arrayEtat
+		if(etat != traité)
+			return false
+		end if
+	end foreach
+	
+	return true
+	
+end isRoot
+	
+ex 17
+
+State {
+	state : (pret, attente, traite)
+}
+
+Graph {
+	nodes : list<Node>
+}
+
+Node {
+	nodes : list<Node>
+	state : State
+}
+
+algo sousComposante(graphe : Graphe nouedDépart : graphNode) --> int
+		
+		nodes : list<Node> <-- graphe.nodes
+		
+		nbComposantes : int <-- 0
+		
+		if(nodes.size() == 0)
+			return nbComposantes
+		end if
+		
+		départCourant <-- nodes[0]
+		
+		while(départCourant != null)
+			parcoursContagion(départCourant, nodes)
+			nbComposantes++
+			départCourant <-- getNodeNonTraite(nodes)
+		end while
+		
+		return nbComposantes
+		
+end sousComposante
+
+algo getNodeNonTraite (nodes : list<Node>) --> node
+	
+	for i from 0 to nodes.size() - 1
+		if(nodes[i].state == pret)
+			return nodes[i]
+		end if
+	end for
+	
+	return null
+	
+end getNodeNonTraite
+
+ex 18 metro ----------------------------
+	
+classe Réseau
+
+	privé: 
+	
+		reseau : tableau [1 à n] de ListeBD<chaine>
+		
+	public:
+	
+	constructeur Réseau(lignes : tableau [1 à n] de ListeBD<chaine>)
+		reseau <-- lignes
+	fin constucteur
+	
+	méthode getStations() → array 
+		
+	méthode getAdjacence() → tableau [1 à m, 1 à m] de booléens
+	
+	
+	méthode getDistance(station1, station2 : chaines) → entier
+
+	
+fin classe
+		
+			
+

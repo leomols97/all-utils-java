@@ -1,0 +1,1063 @@
+backtracking
+
+éttape :
+	- choisir une voie 
+	- explorer la voie (récursivité)
+	- retirer la voie si pas correct
+	- optimiser l'avancer --> estAcceptable
+	
+il faut chercher au plus vite si la voie est viable
+
+ex 1 les n reines -----------------------------------
+	
+algo theNQueens(queen : int, board : array of n * n boolean, currentCol : int) --> void 
+
+	for(int i = 0; i < board.lenght; i++)
+		if(isCorrectPos(i, currentCol, board))
+			board[i][currentCol] = true
+			if(currentCol == numberOfQueen)
+				printSolus(board)
+			else 
+				theNQueens(numberOfQueen, board, currentCol + 1)
+			end if
+			board[i][currentCol] = false
+		end if
+	end for
+	
+end theNQueens
+
+algo isCorrectPos(row : int, col : int, board : array of n * n boolean) --> boolean
+
+	return isCorrectRow(row, col, board) && isCorrectDiagonalUp(row, col, board) && isCorrectDiagonalDown(row, col, board)
+	
+end isCorrectPos
+	
+algo isCorrectRow(row : int, col : int, board : array of n * n boolean) --> boolean
+	
+	for(int i = col; i >= 0; i--)
+		if(board[row][i])
+			return false
+		end if
+	end for
+	
+	return true
+	
+end isCorrectRow
+
+algo isCorrectDiagonalUp(row : int, col : int, board : array of n * n boolean) --> boolean
+	
+	for(int i = 0; col - i >= 0; i++)
+		if(board[row - i][col - i])
+			return false
+		end if
+	end for
+	
+	return true
+	
+end isCorrectDiagonalUp
+
+algo isCorrectDiagonalDown(row : int, col : int, board : array of n * n boolean) --> boolean
+	
+	for(int i = 0; col - i >= 0; i++)
+		if(board[row + i][col - i])
+			return false
+		end if
+	end for
+	
+	return true
+	
+end isCorrectDiagonalDown
+	
+algo printSolus(board : array of n * n boolean) --> void
+
+	for(int i = 0; i < board.lenght; i++)
+		for(int j = 0; j < board[i].lenght; j++)
+			if(board[i][j])
+				print("Q")
+			else 
+				print("*")
+			end if else
+		end for 
+	end for
+	
+end printSolus
+
+ex 2 la chaine --------------------------------------
+
+algo chaineFacade() --> void
+
+	chaine : String
+	chaine <-- ""
+	
+	choiceChar : array of 3 char
+	choiceChar <-- new array {'A', 'B', 'C'}
+	
+	chaine <-- chaineBacktracking(chaine, choiceChar)
+	
+	if(chaine == null)
+		print("pas de chaine trouvée")
+	else 
+		print(chaine)
+	end if
+	
+end chaineFacade
+	
+algo chaineBacktracking(chaine : string, choiceChar : array of 3 char) 
+
+	trouve : string
+	trouve <-- null
+	choice : int
+	choice <-- 0
+	tmpString : string
+	
+	while(trouve == null && choice < choiceChar.lenght())
+		tmpString <-- chaine + choiceChar[choice]
+		if(isAcceptable(tmpString))
+			if(tmpString.lenght() == 100)
+				return tmpString
+			else 
+				trouve <-- chaineBacktracking(tmpString, choiceChar)
+			end if
+		end if
+	end while
+	
+	return trouve
+	
+end chaineBacktracking	
+		
+algo isAcceptable(chaine : String) --> boolean
+
+	for i from 1 to chaine.lenght() / 2
+		tmpString1, tmpString 2 : String
+		tmpString1 <-- chaine.substring(chaine.lenght() - i * 2, chaine.lenght() - i)
+		tmpString2 <-- chaine.substring(chaine.lenght() - i, chaine.lenght()))
+		if(tmpString1.equals(tmpString2))
+			return false
+		end if
+	end for
+	
+	return true
+	
+end isAcceptable
+
+ex 3 carrée magique ------------------------------------------------
+
+position {
+	row : int
+	col : int
+}
+
+algo magicSquareFacade() --> void
+	
+	square : array of 3 * 3 int
+	square <-- new array {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}}
+	
+	possibility : array of 9 boolean
+	possibility <-- new array of 9 boolean
+	
+	magicSquare(square, possibility, new Position(0, 0))
+	
+end magicSquareFacade
+
+algo magicSquare(square : array 3 * 3 int, possibility : array of 9 boolean, pos : Position) --> void
+
+	for i from 0 to 8 
+		if(!possibility[i])
+			magicSquare[pos.row()][pos.col()] <-- i + 1
+			possibility[i] <-- true
+			if(isAcceptable(square, total))
+				if(pos.row() == 2 && pos.col() == 2)
+					printSquare(square)
+				else 
+					position : Position
+					position <-- nextPosition()
+					magicSquare(square, possibility, position)
+				end if
+			end if
+			possibility[i] <-- false
+			magicSquare[pos.row()][pos.col()] <-- 0
+		end if
+	end for
+	
+end magicSquare
+
+algo isAcceptable(square : array 3 * 3 int) --> boolean
+
+	if(!checkRow(square) || !checkCol(square) || !checkDiagonalDown(square) || !!checkDiagonalDown(square))
+		return false
+	end if
+	
+	return true
+	
+end isAcceptable
+
+algo checkRow(square : array 3 * 3 int) --> boolean
+
+	filled : boolean
+	filled <-- true
+	
+	sum : int
+	
+	for i from 0 to 2
+		sum <-- 0
+		for j from 0 to 2
+			if(square[i][j] == 0)
+				filled == true
+			else 
+				sum <-- sum + square[i][j]
+			end if
+		end for
+		
+		if(!filled && sum >= 15 || filled && sum != 15)
+			return false
+		else if(!filled)
+			return true
+		end if
+		
+	end for
+	
+	return true
+	
+end checkRow
+
+algo checkCol(square : array 3 * 3 int) --> boolean
+
+	filled : boolean
+	filled <-- true
+	
+	sum : int
+	
+	for i from 0 to 2
+		sum <-- 0
+		for j from 0 to 2
+			if(square[j][i] == 0)
+				filled == true
+			else 
+				sum <-- sum + square[j][i]
+			end if
+		end for
+		
+		if(!filled && sum >= 15 || filled && sum != 15)
+			return false
+		else if(!filled)
+			return true
+		end if
+		
+	end for
+	
+	return true
+	
+end checkCol
+
+algo checkDiagonalDown(square : array 3 * 3 int) --> boolean
+
+	filled : boolean
+	filled <-- true
+	
+	sum : int
+	sum <-- 0
+	
+	for i from 0 to 2
+		if(square[i][i] == 0)
+			filled == true
+		else 
+			sum <-- sum + square[i][i]
+		end if
+		
+		if(!filled && sum >= 15)
+			return false
+		end if
+	end for
+	
+	if(filled && sum != 15)
+		return false
+	end if
+	
+	return true
+	
+end checkDiagonalDown
+
+algo checkDiagonalup(square : array 3 * 3 int) --> boolean
+
+	filled : boolean
+	filled <-- true
+	
+	sum : int
+	sum <-- 0
+	
+	for i from 2 to 0
+		if(square[i][i] == 0)
+			filled == true
+		else 
+			sum <-- sum + square[i][i]
+		end if
+		
+		if(!filled && sum >= 15)
+			return false
+		end if
+	end for
+	
+	if(filled && sum != 15)
+		return false
+	end if
+	
+	return true
+	
+end checkDiagonalUp
+
+algo nextPosition(pos : Position) --> position
+
+	if(pos.col() + 1 > 2)
+		return new Position(pos.row() + 1, 0)
+	else
+		return new Position(pos.row(), pos.col() + 1)
+	end if
+	
+end nextPosition
+
+ex 4 le casse tête ------------------------------------------------
+
+position {
+	row : int
+	col : int
+}
+
+algo casseTêteFacade()
+	
+	casseTête : array 4 * 4 int
+	casseTête <-- new array 4 * 4 int
+	
+	possibility : array of 8 boolean
+	possibility <-- new array of 8 boolean
+	
+	trouve : boolean
+	
+	trouve <-- casseTêteBacktracking(casseTête, possibility, new Position(0, 1))
+	
+	if(trouve)
+		printCasseTête(casseTête)
+	else
+		print("pas de solution trouvé")
+	end if
+	
+end casseTêteFacade
+
+algo casseTêteBacktracking(casseTête : array 4 * 4 int, possibility : array of 8 boolean, pos : Position) --> boolean
+
+	trouve : boolean
+	trouve <-- false
+	
+	i : int
+	i <-- 0
+	
+	while !trouve && i < 8
+		if(!possibility[i])
+			casseTête[pos.row()][pos.col()] <-- i + 1
+			possibility[i] <-- true
+			if(isAcceptable(casseTête, pos)
+				if(pos.row() == 3 && pos.col() == 2)
+					return true
+				else
+					nextPos : Position
+					nextPos <-- next Position(pos)
+					trouve <-- casseTêteBacktracking(casseTête, possibility, nextPos)
+				end if
+			end if
+			
+			possibility[i] <-- false
+			i++
+			
+		end if
+	end while
+	
+	return trouve
+	
+end casseTêteBacktracking
+
+algo estAcceptable(casseTête : array 4 * 4 int, pos : Position) --> boolean
+
+	if(!checkVoisin(casseTête, pos))
+		return false
+	else
+		return true
+	end if
+	
+end isAcceptable
+
+algo checkVoisins(casseTête : array 4 * 4 int, pos : Position) --> boolean
+
+	for i -1 to 1
+		for j -1 to 1
+			if(isInside(new Position(pos.row() + i, pos.col() + j)) && isConsecutif(casseTête[pos.row() + i][pos.col() + j], casseTête[pos.row()][pos.col()]))
+				return false
+			end if
+		end for
+	end for
+	
+	return true
+	
+end checkVoisin
+
+algo isInside(pos : Position) --> boolean
+
+	return pos.row() < 4 && pos.row() > 0 && pos.col() < 4 && pos.col() > 0
+	
+end isInside
+
+algo isConsecutif(checkNumber, number : int) --> boolean
+
+	return checkNumber == number + 1 || checkNumber == number - 1
+	
+end isConsecutif
+
+algo nextPosition(pos : Position) --> Position
+
+	row, col : int
+
+	if(pos.col() + 1 > 3)
+		col <-- 0
+		row <-- pos.row() + 1
+	else 
+		col <-- pos.col() + 1
+		row <-- pos.row()
+	end if
+	
+	if(row == 0 && col == 3)
+		return new Position(1, 0)
+	else if(row == 3 && col == 0)
+		return new Position(3, 1)
+	else 
+		return new Position(row, col)
+	end if
+	
+end nextPosition
+	
+ex 5 frisque tricolore
+
+algo fresqueFacade(square : int) --> void
+
+	fresque : array of square int
+	fresque <-- new array of square int
+	
+	trouve <-- fresqueBacktracking(fresque, 0)
+	
+	if(trouve)
+		printFresque(fresque)
+	else
+		print("pas de solus trouvé")
+	end if
+	
+end fresqueFacade
+
+algo fresqueBacktracking(fresque : array of n int, currentPos : int) --> boolean
+
+	trouve : boolean
+	trouve <-- false
+	
+	color : int 
+	color <-- 0
+	
+	while !trouve && color < 3
+		fresque[currentPos] <-- color
+		if(isAcceptable(fresque, currentPos))
+			if(currentPos == fresque.lenght())
+				return true
+			else
+				trouve <-- fresqueBacktracking(fresque, currentPos + 1)
+			end if
+		end if
+	end while
+	
+	return trouve
+	
+end fresqueBacktracking
+
+algo isAcceptable(fresque : array of n int, currentPos : int) --> boolean
+
+	counter : int
+	counter <-- currentPos
+	
+	while counter > fresque.lenght() / 2
+		if(fresque[currentPos] == fresque[currentPos - counter] && fresque[currentPos] == fresque[currentPos - 2 * counter])
+			return false
+		end if
+	end while
+	
+end isAcceptable		
+		
+ex 6 les dérangements -------------------------------------------------------------------
+
+algo dérangementFacade(n : int) --> void
+
+	sequence : array of n int
+	sequence <-- new array of n int
+	
+	nombrePris : array of n boolean 
+	nombrePris <-- new array of n boolean
+	
+	dérangementBacktracking(sequence, nombrePris, 0)
+
+end dérangementFacade
+
+algo dérangementBacktracking(sequence : array of n int, nombrePris : array of n boolean, currentPos : int) --> void
+
+	for i from 0 to sequence.lenght() - 1
+		if(!nombrePris[i])
+			sequence[currentPos] <-- i
+			nombrePris[i] <-- true
+			if(isAcceptable(sequence, currentPos))
+				if(currentPos == sequence.lenght())
+					printSequence(sequence)
+				else
+					dérangementBacktracking(fresque, nombrePris, currentPos + 1)
+				end if
+			end if
+			nombrePris[i] <-- false
+		end if
+	end for
+	
+end dérangementBacktracking
+
+algo isAcceptable(sequence : array of n int, currentPos : int) --> boolean
+	
+	return sequence[currentPos] == currentPos
+	
+end isAcceptable
+	
+end permutationRecusive
+
+ex 7 les cavaliers --------------------------------------------------------------------------------
+
+vector {
+	dl : int
+	dc : int
+}
+
+position {
+	row : int
+	col : int
+}
+
+algo cavalierFacade() --> void
+
+	move : array of 8 vector
+	move <-- new array of 8 vector
+	move[0] <-- new vector(-2, 1)
+	move[1] <-- new vector(-2, -1)
+	move[2] <-- new vector(2, 1)
+	move[3] <-- new vector(2, -1)
+	move[4] <-- new vector(-1, 2)
+	move[5] <-- new vector(1, 2)
+	move[6] <-- new vector(1, -2)
+	move[7] <-- new vector(-1, -2)
+	
+	board : array of 5 * 5 boolean
+	board <-- new array of 5 * 5 boolean
+	board[2][2] <-- true
+	
+	deplacement : List<Vector>
+	deplacement <-- new List<Vector>()
+	
+	trouve <-- cavalierBacktracking(move, board, deplacement, new Position(2,2))
+	
+	if(trouve)
+		printDeplacement(deplacement)
+	else
+		print("pas de solution trouvé")
+	end if
+	
+end cavalierFacade
+	
+algo cavalierBacktracking(move : array of 8 vector, board : array of 5 * 5 boolean, deplacement : List<Vector>, pos : Position) --> boolean
+
+	trouve : boolean
+	trouve <-- false
+	
+	i : int
+	i <-- 0
+	
+	choice : vector
+	
+	while !trouve && 0 < 8
+		if(isAcceptable(board, move[i], pos)
+			choice <-- move[i]
+			setDeplacement(board, choice, pos, true)
+			deplacement.add(choice)
+			if(isComplete(board))
+				return true
+			else
+				trouve <-- cavalierBacktracking(move, board, deplacement, new Position(pos.row() + choice.dl()))
+				if(!trouve)
+					setDeplacement(board, choice, pos, false)
+					deplacement.remove(deplacement.size() - 1)
+				end if
+			end if
+		end if
+	end while
+	
+	return trouve
+	
+end cavalierBacktracking
+
+algo isAcceptable(board : array of 5 * 5 boolean, move : vector, pos : Position) --> boolean
+
+	if(vector.dl() == 2)
+		return checkBottom(board, vector.dc(), pos)
+	else if(vector.dl() == -2)
+		return checkTop(board, vector.dc(), pos)
+	else if(vector.dc() == 2)
+		return checkRight(board, vector.dl(), pos)
+	else 
+		return checkLeft(board, vector.dl(), pos)
+	end if
+	
+end isAcceptable
+
+algo isInside(pos : Position, row, col : int) --> boolean
+
+	return pos.row() + row < 5 && pos.row() + row > 0 && pos.col() + col < 5 && pos.col() + col < 0
+	
+end isInside
+
+algo checkBottom(board : array of 5 * 5 boolean, turn : int, pos : Position) --> boolean
+
+	return isInside(pos, 2, turn) && !board[pos.row() + 1][pos.col()] && !board[pos.row() + 2][pos.col()] && !board[pos.row() + 2][pos.col() + turn]
+	
+end checkBottom
+
+algo checkTop(board : array of 5 * 5 boolean, turn : int, pos : Position) --> boolean
+
+	return isInside(pos, -2, turn) && !board[pos.row() - 1][pos.col()] && !board[pos.row() - 2][pos.col()] && !board[pos.row() - 2][pos.col() + turn]
+	
+end checkTop	
+			
+algo checkRight(board : array of 5 * 5 boolean, turn : int, pos : Position) --> boolean
+
+	return isInside(pos, turn, 2) && !board[pos.row()][pos.col() + 1] && !board[pos.row()][pos.col() + 2] && !board[pos.row() + turn][pos.col() + 2]
+	
+end checkRight(board : array of 5 * 5 boolean, turn : int, pos : Position) --> boolean	
+
+algo checkLeft(board : array of 5 * 5 boolean, turn : int, pos : Position) --> boolean
+
+	return isInside(pos, turn, -2) && !board[pos.row()][pos.col() - 1] && !board[pos.row()][pos.col() - 2] && !board[pos.row() + turn][pos.col() - 2]
+	
+end checkLeft
+
+algo setDeplacement(board : array of 5 * 5 boolean, choice : vector, pos : Position) --> void
+
+	if(choice.dl() == 2)
+		setBottom(board, choice.dc(), pos)
+	else if(choice.dl() == -2)
+		setTop(board, choice.dc(), pos)
+	else if(choice.dc() == 2)
+		setRight(board, choice.dl(), pos)
+	else 
+		setLeft(board, choice.dl(), pos)
+	end if
+	
+end setDeplacement
+
+algo setBottom(board : array of 5 * 5 boolean, turn : int, pos : Position) --> boolean
+
+	board[pos.row() + 1][pos.col()] <-- !board[pos.row() + 1][pos.col()]
+	board[pos.row() + 2][pos.col()] <-- !board[pos.row() + 2][pos.col()]
+	board[pos.row() + 2][pos.col() + turn] <-- !board[pos.row() + 2][pos.col() + turn]
+	
+end setBottom
+
+algo setTop(board : array of 5 * 5 boolean, turn : int, pos : Position) --> boolean
+
+	board[pos.row() - 1][pos.col()] <-- !board[pos.row() - 1][pos.col()]
+	board[pos.row() - 2][pos.col()] <-- !board[pos.row() - 2][pos.col()]
+	board[pos.row() - 2][pos.col() + turn] <-- !board[pos.row() - 2][pos.col() + turn]
+	
+end setTop	
+			
+algo setRight(board : array of 5 * 5 boolean, turn : int, pos : Position) --> boolean
+
+	board[pos.row()][pos.col() + 1] <-- !board[pos.row()][pos.col() + 1] 
+	board[pos.row()][pos.col() + 2] <-- !board[pos.row()][pos.col() + 2]
+	board[pos.row() + turn][pos.col() + 2] <-- !board[pos.row() + turn][pos.col() + 2]
+	
+end setRight(board : array of 5 * 5 boolean, turn : int, pos : Position) --> boolean	
+
+algo setLeft(board : array of 5 * 5 boolean, turn : int, pos : Position) --> boolean
+
+	board[pos.row()][pos.col() - 1] <-- !board[pos.row()][pos.col() - 1]
+	board[pos.row()][pos.col() - 2] <-- board[pos.row()][pos.col() - 2]
+	board[pos.row() + turn][pos.col() - 2] <--board[pos.row() + turn][pos.col() - 2]
+	
+end setLeft
+
+algo isComplete(board : array of 5 * 5 boolean) --> boolean
+	
+	for i from 0 to board.lenght() - 1
+		for j from 0 to board.lenght() - 1
+			if(!board[i][j])
+				return false
+			end if
+		end for
+	end for
+	
+end isComplete
+
+ex 8 saute mouton --------------------------------------------------------------------
+
+direction {
+	row : int
+	col : int
+}
+
+position {
+	row : int
+	col : int
+}
+
+algo moutonFacade(parcel : array of n * n boolean) --> int
+	
+	choice : array of 2 direction
+	choice <-- new array of 2 direction
+	choice[0] <-- new direction(-1, 0)
+	choice[1] <-- new direction(0, 1)
+	
+	bestParcours : List<direction>
+	bestParcours <-- new List<direction>
+	
+	maxSheeps : int
+	maxSheeps <-- firstParcours(parcel)
+	
+	currentParcours : List<direction>
+	currentParcours <-- new List<direction>
+	
+	numberOfChance : int
+	numberOfChance <-- 2 * parcel.lenght - 1
+	
+	maxSheeps <-- sheepBacktracking(parcel, choice, maxSheeps, 0, numberOfChance, currentParcours, bestParcours, new Position(0, 0))
+	
+	printParcours(bestParcours)
+	return maxSheeps
+	
+end moutonFacade
+
+algo sheepBacktracking(parcel : array of n * n boolean, choice : array of 2 direction, maxSheeps, currentSheep, numberOfChance : int, currentParcours, bestParcours : List<direction>, pos : Position) --> int
+
+	if(parcel[pos.row()][pos.col()])
+		currentSheep++
+	end if
+	
+	if(pos.row() == parcel.lenght() && pos.col() == parcel.lenght())
+		if(currentSheep > maxSheeps)
+			copyList(bestParcours, currentParcours)
+			return currentSheep
+		end if
+	else 
+		tmpSheep : int
+		foreach direction in choice
+			if(isAcceptable(parcel, direction, pos, maxSheeps, currentSheep, numberOfChance))
+				currentParcours.add(direction)
+				tmpSheep <-- sheepBacktracking(parcel, choice, maxSheeps, currentSheep, numberOfChance - 1, currentParcours, bestParcours, new Position(pos.row() + direction.row(), pos.col() + direction.col()))
+				if(tmpSheep > maxSheeps)
+					maxSheeps <-- tmpSheep
+				end if
+				currentParcours.remove(currentParcours.lenght() - 1)
+			end if
+		end foreach
+		
+		return maxSheeps
+	end if
+	
+end sheepBacktracking
+
+algo isAcceptable(parcel : array of n * n boolean, direction : Direction, pos : Position, maxSheeps, currentSheep, numberOfChance : int) --> boolean
+
+	return isInside(parcel, direction, pos) && canBeBest(parcel, maxSheeps, currentSheep, numberOfChance)
+	
+end isAcceptable
+
+algo isInside(parcel : array of n * n boolean, direction : Direction, pos : Position) --> boolean
+
+	return pos.row() + direction.row() < parcel.lenght() && pos.col() + direction.col() < parcel.lenght()
+	
+end isInside
+
+algo canBeBest(parcel : array of n * n boolean, maxSheeps, currentSheep, numberOfChance : int) --> boolean
+
+	return currentSheep + numberOfChance > maxSheeps
+	
+end canBeBest
+
+ex 9 labyrinthe ----------------------------------------------------------------------
+
+méthode pour retourner une liste de direction en passant an paramètre la struct
+
+direction {
+	row : int
+	col : int
+}
+
+position {
+	row : int
+	col :
+}
+
+algo labyrinthefacade(labyrinthe : array of 10 * 10 Acces) --> void
+
+	chemin : List<direction>
+	chemin <-- new List<direction>()
+	
+	explorer : array of 10 * 10 boolean
+	explorer <-- new array of 10 * 10 boolean
+	
+	trouve : boolean
+	
+	trouve <-- labyrintheBacktracking(labyrinthe, chemin, explorer, new Position(0, 0))
+	
+	if(trouve)
+		printChemin(chemin)
+	else 
+		print("chemin introuvable")
+	end if
+	
+end labyrinthefacade
+
+algo labyrintheBacktracking(labyrinthe : array of 10 * 10 Acces, chemin : List<direction>, explorer : array of 10 *10 boolean, pos : position) --> boolean
+
+	explorer[pos.row()][pos.col()] <-- true
+
+	possibility : List<direction>
+	possibility <-- getPossibility(labyrinthe[pos.row()][pos.col()])
+	
+	trouve : boolean
+	trouve <-- false
+	
+	i : int
+	i <-- 0
+	
+	while !trouve && i < possibility.size() - 1
+		tmpPosi : direction
+		tmpPosi <-- possibility.get(i)
+		if(isAcceptable(explorer, tmpPosi, pos))
+			chemin.add(tmpPosi)
+			if(isExit(pos, tmpPosi))
+				return true
+			else
+				trouve <-- labyrintheBacktracking(labyrinthe, chemin, explorer, new Position(pos.row() + tmpPosi.row(), pos.col() + tmpPosi.col())
+				if(!trouve)
+					chemin.remove(chemin.size() - 1)
+				end if
+			end if
+		end if
+	end while
+	
+	return trouve
+	
+end labyrintheBacktracking
+
+algo getPossibility(acces : Acces) --> List<direction>
+
+	possibility : List<direction>
+	possibility <-- new List<direction>()
+	
+	if(acces.droite())
+		possibility.add(new direction(0, 1)
+	end if
+	
+	if(acces.bas())
+		possibility.add(new direction(1, 0)
+	end if
+	
+	if(acces.gauche())
+		possibility.add(new direction(0, -1)
+	end if
+	
+	if(acces.haut())
+		possibility.add(new direction(-1, 0)
+	end if
+	
+	return possibility
+	
+end getPossibility
+
+algo isAcceptable(explorer : array of 10 * 10 boolean, direction : direction, pos : Position) --> boolean
+
+	return !explorer[pos.row() + direction.row()][pos.col() + direction.col()]
+	
+end isAcceptable
+
+algo isExit(direction : direction, pos : Position) --> boolean
+
+	return pos.row() + direction.row() == 9 && pos.col() + direction.col() == 9
+	
+end isExit
+
+ex 10 sudoku --------------------------------------------------------------------------
+
+position {
+	row : int
+	col : int
+}
+
+algo sudokuFacade(sudoku : array of 9 * 9 int) --> void 
+
+	sudokuBacktracking(sudoku, new Position(0, 0))
+	
+	printSudoku(sudoku)
+	
+end algo
+
+algo sudokuBacktracking(sudoku : array of 9 * 9 int, pos : Position) --> boolean
+
+	if(sudoku[pos.row()][pos.col()] != 0)
+		nextPos : Position
+		nextPos <-- nextPosition(sudoku, pos)
+		return sudokuBacktracking(sudoku, nextPos)
+	else
+		trouve : boolean
+		trouve <-- false
+		
+		i : int
+		i <-- 1
+		
+		while !trouve && i <= 9
+			if(isAcceptable(sudoku, i, pos))
+				sudoku[pos.row()][pos.col()] <-- i
+				if(isComplete(sudoku, pos))
+					return true
+				else 
+					nextPos : Position
+					nextPos <-- nextPosition(sudoku, pos)
+					trouve <-- sudokuBacktracking(sudoku, nextPos)
+					if(!trouve)
+						sudoku[pos.row()][pos.col()] <-- 0
+				end if
+			end if
+			
+			i++
+		end while
+		
+		return trouve
+		
+	end if
+	
+end sudokuBacktracking
+
+algo isAcceptable(sudoku : array of 9 * 9 int, value : int, pos : Position) --> boolean
+
+	return checkColumn(sudoku, value, pos) && checkRow(sudoku, value, pos) && checkBox(sudoku, value, pos)
+	
+end isAcceptable
+
+algo checkColumn(sudoku : array of 9 * 9 int, value : int, pos : Position) --> boolean
+
+	for i from 0 to sudoku.lenght() - 1
+		if(sudoku[0][pos.col()] == value)
+			return false
+		end if
+	end for
+	
+	return true
+	
+end checkColumn
+
+algo checkRow(sudoku : array of 9 * 9 int, value : int, pos : Position) --> boolean
+
+	for i from 0 to sudoku.lenght() - 1
+		if(sudoku[pos.row()][i] == value)
+			return false
+		end if
+	end for
+	
+	return true
+	
+end checkRow
+
+algo checkBox(sudoku : array of 9 * 9 int, value : int, pos : Position) --> boolean
+
+	colStart, rowStart : int
+	colStart <-- pos.col() - pos.col() % 3
+	rowStart <-- pos.row() - pos.row() % 3
+	
+	for i from 0 to 2
+		for j from 0 to 2
+			if(sudoku[rowStart + i][colStart + j] == value)
+				return false
+			end if
+		end for
+	end for
+	
+	return true
+	
+end checkBox
+
+algo nextPosition(sudoku : array of 9 * 9 int , pos : Position) --> Position
+
+	if(pos.col() + 1 > 8)
+		return new Position(pos.row() + 1, 0)
+	else 
+		return new Position(pos.row(), pos.col() + 1)
+	end if
+	
+end nextPosition
+
+algo isComplete(sudoku : array of 9 * 9 int , pos : Position) --> boolean
+	
+	for i from pos.row() to sudoku.lenght() - 1
+		for i from 0 to sudoku.lenght() - 1
+			if(sudoku[i][j] == 0)
+				return false
+			end if
+		end for
+	end for
+	
+	return true
+	
+end isComplete
+
+ex 11 compte juste --------------------------------------------------------------------
+
+algo compteJusteFacade(money : array of n int, targetValue : int) --> boolean 
+	
+	take : array of n boolean
+	take <-- new array of n boolean
+	
+	return compteJusteBacktracking(money, take, targetValue, 0)
+	
+end compteJusteFacade
+
+algo compteJusteBacktracking(money : array of n int, take : array of n boolean, targetValue, currentMoney : int) --> boolean 
+
+	trouve : boolean
+	trouve <-- false
+	
+	i : int
+	i <-- 0
+	
+	while !trouve && i < take.lenght()
+		if(!take[i] && isAcceptable(currentMoney, money[i], targetValue))
+			currentMoney <-- currentMoney + money[i]
+			take[i] <-- true
+			if(currentMoney == targetValue)
+				return true
+			else
+				trouve <-- compteJusteBacktracking(money, take, targetValue, currentMoney)
+				if(!trouve)
+					currentMoney <-- currentMoney - money[i]
+					take[i] <-- false
+				end if
+			end if
+		end if
+		i++
+	end while
+	
+	return trouve
+	
+end compteJusteBacktracking
+
+algo isAcceptable(currentMoney, money, targetValue : int) --> boolean
+	
+	return currentMoney + money <= targetValue
+	
+end isAcceptable
+
+ex 12 mot le plus long ---------------------------------------------------------------------
+	

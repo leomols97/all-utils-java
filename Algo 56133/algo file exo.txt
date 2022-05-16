@@ -1,0 +1,181 @@
+Excercice algo file
+
+exo 1
+cas 1 ListeBD
+
+classe FileListBD implement File<T> 
+
+private :
+
+	private listeBD : ListeBD<T>
+
+public :
+
+	enfiler(value : T)
+		listeBD.insérerFin(value);
+	end enfiler
+	
+	tête()
+		if(estVide())
+			throw error
+		end if
+		return listeBD.getPremier().value();
+	end tete
+	
+	défiler()
+		if(estVide())
+			throw error
+		end if
+		value : T <-- tete()
+		listeBD.supprimerTete()
+		return value
+	end défiler
+	
+	estVide()
+		return listeBD.estVide()
+	end estVide
+
+end FileListBD
+
+cas 2
+
+classe FileList implement File<T> 
+
+private :
+
+	linkedList : LinkedList<T>
+	lastFile : Node
+
+public :
+
+	enfiler(value : T)
+		if(estVide())
+			linkedList.insérerTete()
+			lastFile <-- linkedList.getPremier()
+		else
+			linkedList.insererAprès(value, lastFile)
+			lastFile <-- lastFile.getSuivant()
+		end if else
+	end enfiler
+	
+	tête()
+		if(estVide())
+			throw error
+		end if
+		return linkedList.getPremier().value();
+	end tete
+	
+	défiler()
+		if(estVide())
+			throw error
+		end if
+		value : T <-- tete()
+		LinkedList.supprimerTete()
+		return value
+	end défiler
+	
+	estVide()
+		return LinkedList.estVide()
+	end estVide
+	
+end FileList
+
+exo 2
+
+classe FileTab<T> implement File<T>
+
+private : 
+
+	tab : tableau<T>
+	premier : int
+	dernier : int
+	nbMaxElement : int
+	
+public :
+	
+	fileTab(nbMaxElement)
+		tab <-- array of (nbMaxElement + 1) T
+		nbMaxElement <-- nbMaxElement
+		premier <-- 1
+		dernier <-- 0
+	end fileTab
+	
+	enfiler(value : T)
+		if(estPleine)
+			throw error
+		else if(estVide)
+			tab[0] <-- value
+			premier <-- 0
+			dernier <-- 0
+		end if else
+		
+		tab[(dernier + 1) % tab.size()]
+		dernier++
+	end enfiler
+	
+	tête()
+		if(estVide())
+			throw error
+		end if
+		return tab[premier]
+	end tete
+	
+	défiler()
+		if(estVide())
+			throw error
+		end if
+		value : T <-- tete()
+		premier <-- ((premier + 1) % tab.size())
+		return value
+	end défiler
+	
+	estVide()
+		return ((dernier + 1) % tab.size() == premier % tab.size()
+	end estVide
+	
+	estPleine()
+		return (dernier + 2) % tab.size() == premier % tab.size()
+	end estPleine
+
+end FileTab
+
+exo 3
+
+algo embarquement(chargeMax : int, file : FileListBD<Personne>) --> int
+
+	currentWeight : int <-- 0
+	nbPersonne : int <-- 0
+	
+	while(!file.estVide() && (currentWeight + file.tete().weight()) <= chargeMax)
+		nbPersonne++
+		currentWeight += file.défiler().weight()
+	end while
+	
+	return nbPersonne
+
+end embarquement
+
+algo arrivée(weight : int, file : fileListDB<Personne>) --> void
+
+	file.enfiler(new Personne(weight))
+	
+end arrivée
+
+exo 4
+
+algo reverseFile(file : fileListDB<Integer>) --> void
+
+	pile : PileList<Integer> <-- new PileList<Integer>
+	value : int
+	
+	while(!file.estVide())
+		pile.push(file.défiler())
+	end while
+	
+	while(!pile.estVide())
+		if((value <-- pile.pop()) % 2 == 1)
+			file.enfiler(value)
+		end if
+	end while
+	
+end reverseFile

@@ -1,0 +1,346 @@
+Récursivité
+
+exemple : 
+
+fonction factorielle(int n){
+	if(n == 0){
+		return 1
+	}
+	return factorielle(n - 1);
+}
+
+si trop d'appelle --> stackOverflow --> premier problème.
+
+complexité qui apparait --> deuxième problème.
+
+la récursivité doit être terminal --> troisième problème.
+
+fonction fibo(int n){
+	if(n == 0){
+		return 1;
+	}else if(n == 1){
+		return 1;
+	}
+	return fibo(n-1) + fibo(n-2);
+}
+
+fonction factorielle(int n, int cpt){
+	if(n == 0){
+		return cpt;
+	}
+	return factorielle(n - 1, cpt * n);
+}
+
+excercice 2-------------------------------------------------
+
+algorithme Hanoï(n↓ : entier, départ↓, arrivée↓, intermédiaire↓ : caractères)
+	si n > 0 alors
+		Hanoï(n − 1, départ, intermédiaire, arrivée)
+		afficher « déplacer le disque de taille », n « du socle », départ, « vers le socle », arrivée
+		Hanoï(n − 1, intermédiaire, arrivée, départ)
+	fin si
+fin algorithme
+
+tracage
+
+hanoi(3, départ A, arrivée B, intermédiaire C)
+
+	hanoi(2, A, C, B)
+	
+		hanoi(1, A, B, C)
+		déplacer le disque de taille 1 du socle A départ vers B
+		
+	déplacer le disque de taille 2 du socle départ A vers le socle C
+	
+		hanoi(1, B, C, A)
+		déplacer le disque de taille 1 du socle B vers le socle C
+	
+déplacer le disque de taille 3 du socle départ A vers le socle B
+	
+	hanoi(2, C, B, A)
+
+excercice 3-------------------------------------------------
+
+algo parcoursLinkedListe(noeud : Node<T>, cpt) --> int
+
+	if(noeud == null)
+		return cpt
+	end if
+	
+	cpt++
+	return taileLinkedListe(noeud.next(), cpt)
+	
+end algo taileLinkedListe
+
+algo tailleLinkedListe(liste : LinkedList<T>) --> int
+
+	return parcoursLinkedListe(liste.first(), 0)
+	
+end taileLinkedListe
+
+excercice 4-------------------------------------------------
+
+algo symétrie(tab : array of n element, indGauche : int, indDroite : int) --> boolean
+
+	if(indGauche > indDroite)
+		return true
+	else if(tab[indGauche] != tab[indDroite])
+		return false
+	end if else
+	
+	return estSymétrique(tab, indGauche + 1, indDroite - 1)
+	
+end symétrie
+
+algo estSymétrique(tab : array of n element) --> boolean
+	
+	return symétrie(tab, 0, tab.size() - 1)
+	
+end estSymétrique
+
+excercice 5-------------------------------------------------
+
+algo division(dividende : int, diviseur : int, resultat : int)
+
+	if(dividende - diviseur < 0)
+		return resultat
+	end if
+	
+	division(dividende - diviseur, diviseur, resultat + 1)
+	
+end division
+
+algo divisionEntière(dividante : int, diviseur : int)
+	
+	division(dividante, diviseur, 0)
+	
+end division
+	
+excercice 6-------------------------------------------------
+	
+algo recherche(array : array of n T, value : T, borneGauche : int, bordeDroite : int) --> int
+	
+	if(borneGauche > bordeDroite)
+		return -1;
+	else if(array[bordeDroite] == value)
+		return bordeDroite
+	else if(array[borneGauche] == value)
+		return borneGauche
+	else if(array[bordeDroite/2] == value)
+		return bordeDroite/2
+	else if(array[bordeDroite/2] > value)
+		return recherche(array, value, borneGauche, bordeDroite/2 - 1)
+	else if(array[bordeDroite/2] < value)
+		return recherche(array, value, bordeDroite/2 + 1, bordeDroite)
+	end if
+	
+end recherche
+
+algo facadeRecherche(array : array of n T, value : T) --> int
+
+	return recherche(array, value, 0, array.length - 1)
+	
+end facadeRecherche
+
+ex 7 PGCD ------------------------------------------
+
+algo PGCDRecurssif(a : int, b : int) --> int
+	
+	if(b == 0)
+		return a
+	else if(b != 0)
+		return PGCDRecurssif(b, a % b)
+	end if
+
+end PGCDRecurssif
+
+algo PGCDFacade(a : int, b : int) --> int
+
+	if(a < 0 || b < 0)
+		throw error
+	else 
+		return PGCDRecurssif(a, b)
+	end if
+	
+end PGCDFacade
+
+ex 8 calcul de puissance -------------------------------------
+
+algo puissanceRecurssif(x : double, n : int) --> int
+	
+	if(n == 0)
+		return 1
+	else if(n == 1 || n == -1)
+		return x
+	else if(n % 2 == 0)
+		return puissanceRecurssif(x, n / 2) * puissanceRecurssif(x, n / 2)
+	else if(n % 2 == 1)
+		return puissanceRecurssif(x, n - 1 / 2) * puissanceRecurssif(x, n - 1 / 2) * x
+	else 
+		return 1 / puissanceRecurssif(x, n - 1 / 2) * puissanceRecurssif(x, n - 1 / 2) * x
+	end if
+	
+end puissanceRecurssif
+
+algo puissanceFacade(x : double, n : int) -->
+
+	return puissanceRecurssif(x, n)
+	
+end puissanceRecurssif
+
+ex 9 coefficient binomiaux ----------------------------------
+
+algo coefficientRecurssif(c, p, n : int) --> int
+
+	if(p == 0 || p == n)
+		return 1
+	else 
+		coefficientRecurssif(c, p - 1, n - 1) + coefficientRecurssif(c, p, n - 1)
+	end if
+	
+end coefficientRecurssif
+		
+algo coefficientFacade(c, p, n : int) --> int
+
+	if(n < 0 || p < 0)
+		throw error
+	else if(p > n)
+		return 0
+	else 
+		return coefficientRecurssif(c, p ,n)
+	end if
+	
+end coefficientFacade
+
+ex 10 chiffre romain ----------------------------------------
+
+algo convertionRomainChiffreFacade(chiffre : array of n character) -->
+	
+	if(chiffre.lenght == 0)
+		throw error
+	else 
+		return convertionRomainChiffre(array, 0)
+	end if
+	
+end convertionRomainChiffreFacade
+
+algo convertionRomainChiffre(chiffre : array of n character, currentPos : int) --> int
+
+	if(currentPos == chiffre.lenght)
+		return romainVersChiffre(array[currentPos])
+	else if(romainVersChiffre(array[currentPos] < romainVersChiffre(array[currentPos + 1])
+		return convertionRomainChiffre(array, currentPos + 1) - romainVersChiffre(array[currentPos])
+	else 
+		return romainVersChiffre(array[currentPos]) + convertionRomainChiffre(array, currentPos + 1)
+	end if
+	
+end convertionRomainChiffre
+	
+algo romainVersChiffre(char : Character) --> int
+
+	if(char == 'M')
+		return 1000
+	else if(char == 'D')
+		return 500
+	else if(char == 'C')
+		return 100
+	else if(char == 'L')
+		return 50
+	else if(char == 'X')
+		return 10
+	else if(char == 'V')
+		return 5
+	else
+		return 1
+	end if
+	
+end romainVersChiffre
+	
+excercice 11--------------------------------------------------
+
+1.
+
+algo estVoisin(quadrillage : array of n * n int, estTestée : array of n * n boolean, posCourant : Position, destination : Position) --> boolean
+	
+	estTestée[posCourant.I][posCourant.J] = true
+	
+	if(posCourant == destination)
+		return true
+	end if
+	
+	listVoisin : ArrayList<Position>
+	listVoisin <-- getVoisin(quadrillage, posCourant, quadrillage[destination.I][destination.J])
+	
+	for i from 0 to listVoisin.size()
+	
+		if(!estTestée[listVoisin.get(i).row][listVoisin.get(i).column] && 
+		estVoisin(quadrillage, estTestée, listVoisin.get(i), destination))
+			return true
+		end if
+		
+	end for
+	
+	return false
+	
+end while 
+
+algo getVoisin(quadrillage : array n * n of int, posCourant : Position, couleur : int) --> arrayList<Couleur>
+
+	listVoisin : arrayList<Position>
+	listVoisin <-- new rrayList<Position>
+	listCandidat : array of 4 Position
+	listCandidat <-- { Position(posCourant.row - 1, posCourant.column),
+						Position(posCourant.row + 1, posCourant.column),
+						Position(posCourant.row, posCourant.column + 1), 
+						Position(posCourant.row, posCourant.column - 1)}
+						
+	for i from 0 to listCandidat.length
+		if(isInside(quadrillage, listCandidat[i]) && estMemeCouleur(quadrillage, listCandidat[i], couleur))
+			listVoisin.add(listCandidat[i])
+		end if
+	end for
+	
+	return listVoisin
+	
+end getVoisin	
+
+algo isInside(quadrillage : array n * n of int , posCourant : Position) --> boolean
+	
+	return posCourant.row <= quadrillage.length && posCourant.row >= 0 &&
+	posCourant.column <= quadrillage[0].length && posCourant.column >= 0
+	
+end isInside
+
+algo estMemeCouleur(quadrillage : array n * n of int, posCourant : Position, couleur : int) --> boolean
+
+	return quadrillage[posVoisin.row][posVoisin.column] == couleur
+	
+end estMemeCouleur
+
+2.
+
+algo aireTache(quadrillage : array of n * n int, estTestée : array of n * n boolean, posCourant : Position) --> int
+	
+	cpt : int 
+	cpt <-- 1
+	
+	estTestée[posCourant.row][posCourant.column] = true
+	
+	listVoisin : ArrayList<Position>
+	listVoisin <-- getVoisin(quadrillage, posCourant, quadrillage[posCourant.row][posCourant.column])
+	
+	foreach(Position pos : listVoisin)
+	
+		if(estTestée[pos.row][pos.column])
+			cpt += aireTache(quadrillage, estTestée, pos)
+		end if
+		
+	end foreach
+	
+	return cpt
+	
+end aireTache
+
+	
+	
+	

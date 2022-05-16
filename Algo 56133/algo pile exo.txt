@@ -1,0 +1,133 @@
+//Excercice 1
+classe PileListe<T> implement Pile<T>
+
+	private stack : LinkedList<T>
+	
+	PileListe()
+		stack <-- new LinkedList<T>
+	
+	push(value : T) --> void
+		stack.insérerTête(value);
+	fin push
+	
+	pop() --> T
+		value : T <-- top()
+		stack.supprimerTête();
+		return value;
+	fin pop
+	
+	top() --> T
+		if(stack.estVide()){
+			throw error
+		}
+		return stack.getFirst().getValue();
+	fin top
+	
+	estVide() --> boolean
+		return stack.isEmpty()
+	fin estVide
+
+fin PileListe
+	
+//excercice 2
+classe PileTab<T> implement Pile<T>
+
+	private :
+		tab : array<T>
+		indSommet : int
+		
+	public :
+	
+	PileTab(int tailleMax)
+		tab <-- new array of tailleMax element
+		indSommet <-- -1
+	fin PileTab
+	
+	push(value : T) --> void
+		if(indSommet == tab.size() - 1){
+			throw error
+		}
+		indSommet++
+		tab[indSommet] <-- value
+	fin push
+	
+	pop() --> T
+		value : T <-- top()
+		indSommet--
+		return value
+	fin pop
+	
+	top() --> T
+		if(estVide){
+			throw error
+		}
+		return tab[indSommet]
+	fin top
+	
+	estVide() --> boolean
+		return indSommet == -1
+	fin estVide
+	
+//Excercice 3
+algo itinéraireRetour(fileIn : FichierEntrée d'info) --> FichierSortie d'info
+
+	enr : info
+	pileEtape : PileListe<Etape> <-- new PileListe()
+	fileOut : FichierSortie d'info
+	km : int
+	tmpResult : int
+	
+	fileIn.open()
+	enr <-- fileIn.read()
+	while(! fileIn.EOF())
+		pileEtape.push(enr)
+		enr <-- fileIn.read()
+	end while
+	fileIn.close()
+	
+	km <-- pileEtape.top().kilometer()
+	
+	fileOut.open()
+	while(! pileEtape.empty())
+		enr <-- pileEtape.pop()
+		tmpResult <-- km - enr.kilometer()
+		km <-- km - tmpResult
+		fileOut.write(new Etape(enr.ville(), tmpResult)
+	end while
+	
+	return fileOut
+
+end itinéraireRetour
+
+ex 4 notation polonaise inverse
+
+algo notationPolonaiseInverse(array : Array of String) --> int
+
+	pileCalcul : PileListe <-- new PileListe()
+	
+	for(int i = 0; i < array.length; i++)
+		if(estNombre(array[i])
+			pileCalcul.push(nombre(array[i]))
+		else 
+			tmpVal1 : int <-- pileCalcul.pop()
+			tmpVal2 : int <-- pileCalcul.pop()
+			
+			if(array[i].equals("+"))
+				pileCalcul.push(tmpVal1 + tmpVal2)
+			else if(array[i].equals("-")
+				pileCalcul.push(tmpVal1 - tmpVal2)
+			else if(array[i].equals("*")
+				pileCalcul.push(tmpVal1 * tmpVal2)
+			else 
+				pileCalcul.push(tmpVal1 / tmpVal2)
+			end if
+		end if
+	end for
+	
+	return pileCalcul.pop()
+	
+end notationPolonaiseInverse
+	
+	
+	
+	
