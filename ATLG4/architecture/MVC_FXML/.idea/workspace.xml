@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="fb4e179d-afee-49b3-b432-fb805daa6bc2" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../../TD02/TD02 - Repository.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/../../../TD02/TD02 - Repository.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TD02/TD02 - Repository.synctex.gz" beforeDir="false" afterPath="$PROJECT_DIR$/../../../TD02/TD02 - Repository.synctex.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TD02/TD02 - Repository.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../../../TD02/TD02 - Repository.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TD03/TD03 - Repository pattern - Validation.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/../../../TD03/TD03 - Repository pattern - Validation.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TD03/TD03 - Repository pattern - Validation.synctex.gz" beforeDir="false" afterPath="$PROJECT_DIR$/../../../TD03/TD03 - Repository pattern - Validation.synctex.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../TD03/TD03 - Repository pattern - Validation.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../../../TD03/TD03 - Repository pattern - Validation.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TD04 - Architectural pattern.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/../../TD04 - Architectural pattern.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TD04 - Architectural pattern.synctex.gz" beforeDir="false" afterPath="$PROJECT_DIR$/../../TD04 - Architectural pattern.synctex.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TD04 - Architectural pattern.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../../TD04 - Architectural pattern.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Archives/2017-2018/DesignPatterns/code/Iterator/nbproject/build-impl.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Archives/2017-2018/DesignPatterns/code/Iterator/nbproject/build-impl.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Archives/2017-2018/DesignPatterns/code/Iterator/nbproject/genfiles.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Archives/2017-2018/DesignPatterns/code/Iterator/nbproject/genfiles.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Archives/2017-2018/DesignPatterns/code/Iterator/nbproject/private/private.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Archives/2017-2018/DesignPatterns/code/Iterator/nbproject/private/private.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Archives/2017-2018/DesignPatterns/code/Iterator/nbproject/project.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Archives/2017-2018/DesignPatterns/code/Iterator/nbproject/project.properties" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+  </component>
+  <component name="ProjectId" id="1YOFRjnLhsPXbQUoRLgA8xJSKXp" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="atl.architetural.mvc.Main" />
+      <module name="MVC" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="atl.architetural.mvc.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fb4e179d-afee-49b3-b432-fb805daa6bc2" name="Default Changelist" comment="" />
+      <created>1582805728971</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1582805728971</updated>
+      <workItem from="1582805734213" duration="299000" />
+      <workItem from="1582806067513" duration="816000" />
+      <workItem from="1582809518228" duration="3320000" />
+      <workItem from="1616517592533" duration="2014000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

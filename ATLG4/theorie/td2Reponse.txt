@@ -1,0 +1,58 @@
+fichier réponse question td2
+
+2.1.1 Création par héritage, la classe Thread.
+
+1. thread créer avec un constructeur et exe avec la méthode start.
+
+2. La méthode start permet de lancer un thread et elle est implémente dans la classe Thread.
+
+3. TestMyThread se termine plus vite que MyThread.
+
+4. aucun thread ne sera créer, ce sera juste un simple appel de fct dans un seul thread.
+
+2.1.2 Création par implémentation, l’interface Runnable.
+
+1. on crée un objet de type Runnable qu'on va passer au constructeur de thread pour créer un objet
+	et l'objet de type thread va appeller la méthode start.
+	
+	la difference ici est qu'on ne créer pas un objet de type Tread directement mais on crée
+	un objet qui sera utilisé pour créer un objet Thread.
+	
+2.2.1 Méthodes sleep et yield.
+
+1. MyTimer va réaliser quelque affichage puis quand TestMyTimer va se réveiller, TestMyTimer va faire
+   ses affichages
+   
+2. car MyTimer hérite directement de la classe Thread donc pas besoin de dire le nom de la classe 
+   pour invoquer la méthode sleep qui est une méthode static. Tandis que dans TestMyThread,
+   il faut utiliser le nom de la classe pour invoquer la méthode sleep.
+   
+3. C'est une exception qui est lancée lorqu'un thread est interrompu alors qu'il dors, attend ou fait autre chose.
+
+4. Lorsque MyTestThread a mis shouldRun a false.
+
+2.2.2 Méthode interrupt().
+
+1. La méthode interrupted permet de vérifier si le thread a été interrompu.
+   La méthode interrupt permet d'interrompre un thread
+   
+2. le thread MyTimerInterrupted continue de s'excecuter si y a pas le return tandis que 
+   le thread se termine si y a le return car la méthode interrupt n'interrompt pas 
+   brutalement le thread, il l'interrompt juste momentanément.
+   
+2.3 Thread utilisateur et démon.
+
+1. quand le main thread se réveille, le DaemonThread se termine.
+
+2. Le DaemonThread n'a le temps que de faire une seule itération.
+
+3. join permet de garder en vie le Daemon jusqu'a qu'il meurt.
+
+4.1 Illustration du problème d’accès concurrent.
+
+1. Car a un certain moment, le thread MyThread va récuperer une valeur de I qui est impair.
+
+4.2 Méthode synchronized
+
+1. la méthode show attend que la méthode print aie fini avant de faire ses affichages.
+

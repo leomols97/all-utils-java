@@ -1,0 +1,11 @@
+g56133\atl\Mentoring\config\ConfigManager.class
+g56133\mentoring\repository\StudentDao.class
+g56133\mentoring\repository\StudentDao$StudentDaoHolder.class
+g56133\mentoring\repository\StudentRepository.class
+g56133\atl\Mentoring\dto\Dto.class
+g56133\mentoring\repository\Repository.class
+g56133\atl\Mentoring\Mentoring.class
+g56133\mentoring\repository\RepositoryException.class
+g56133\atl\Mentoring\config\ConfigManager$ConfigManagerHolder.class
+g56133\mentoring\repository\Dao.class
+g56133\atl\Mentoring\dto\StudentDto.class

@@ -1,0 +1,15 @@
+g56133\atl\stib\model\repository\FavoriteRepository.class
+g56133\atl\stib\presenter\Presenter.class
+g56133\atl\stib\handler\SearchFavoriteHandler.class
+g56133\atl\stib\handler\AddFavoritehandler.class
+g56133\atl\stib\main\StibMain.class
+g56133\atl\stib\model\core\Request.class
+g56133\atl\stib\handler\ChangeFavoStationsHandler.class
+g56133\atl\stib\view\View.class
+g56133\atl\stib\presenter\Presenter$1.class
+g56133\atl\stib\handler\DeleteFavoriteHandler.class
+g56133\atl\stib\handler\ChangeFavoNameHandler.class
+g56133\atl\stib\model\JDBC\FavoritesDao$FavoritesDaoHolder.class
+g56133\atl\stib\model\dto\FavoriteDto.class
+g56133\atl\stib\handler\SearchHandler.class
+g56133\atl\stib\model\JDBC\FavoritesDao.class

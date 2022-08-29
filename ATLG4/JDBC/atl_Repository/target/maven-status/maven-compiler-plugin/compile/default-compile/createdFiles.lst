@@ -1,0 +1,17 @@
+atl\grade\DemoRepository.class
+atl\grade\repository\Repository.class
+atl\grade\config\ConfigManager$1.class
+atl\grade\config\ConfigManager.class
+atl\grade\jdbc\StudentsDao.class
+atl\grade\repository\StudentRepository.class
+atl\grade\config\ConfigManager$ConfigManagerHolder.class
+atl\grade\jdbc\DBManager$1.class
+atl\grade\repository\Dao.class
+atl\grade\jdbc\DBManager.class
+atl\grade\jdbc\StudentsDao$1.class
+atl\grade\jdbc\DBManager$DBManagerHolder.class
+atl\grade\dto\StudentDto.class
+atl\grade\dto\Dto.class
+atl\grade\exception\RepositoryException.class
+atl\grade\dto\GradeDto.class
+atl\grade\jdbc\StudentsDao$StudentsDaoHolder.class

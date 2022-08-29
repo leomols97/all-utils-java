@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.SearchableComboBox?>
+
+<VBox prefHeight="572.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="File">
+          <items>
+            <MenuItem mnemonicParsing="false" text="New" />
+            <MenuItem mnemonicParsing="false" text="Open…" />
+            <Menu mnemonicParsing="false" text="Open Recent" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Close" />
+            <MenuItem mnemonicParsing="false" text="Save" />
+            <MenuItem mnemonicParsing="false" text="Save As…" />
+            <MenuItem mnemonicParsing="false" text="Revert" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Preferences…" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Quit" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Edit">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Undo" />
+            <MenuItem mnemonicParsing="false" text="Redo" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Cut" />
+            <MenuItem mnemonicParsing="false" text="Copy" />
+            <MenuItem mnemonicParsing="false" text="Paste" />
+            <MenuItem mnemonicParsing="false" text="Delete" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Select All" />
+            <MenuItem mnemonicParsing="false" text="Unselect All" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+          <items>
+            <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+      <ScrollPane fx:id="ScrollImage" prefHeight="207.0" prefWidth="826.0">
+         <content>
+            <ImageView fx:id="MetroMap" fitHeight="242.0" fitWidth="944.0" pickOnBounds="true">
+               <image>
+                  <Image url="@../images/metro.gif" />
+               </image>
+            </ImageView>
+         </content>
+      </ScrollPane>
+      <HBox prefHeight="320.0" prefWidth="900.0">
+         <children>
+            <VBox fx:id="MenuBox" alignment="TOP_CENTER" prefHeight="310.0" prefWidth="433.0">
+               <HBox.margin>
+                  <Insets left="10.0" top="10.0" />
+               </HBox.margin>
+               <children>
+                  <ImageView fx:id="StibLogo" fitHeight="82.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <image>
+                        <Image url="@../images/logo.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="OriginLabel1" alignment="CENTER" contentDisplay="CENTER" layoutX="198.0" layoutY="123.0" prefHeight="20.0" prefWidth="88.0" text="Favorites:" underline="true" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <SearchableComboBox fx:id="SearchFavorites" layoutX="139.0" layoutY="148.0" maxHeight="-Infinity" maxWidth="-Infinity" promptText="Favorites">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </SearchableComboBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <Button fx:id="ButtonFavorites" mnemonicParsing="false" text="Apply favorite" />
+                        <Button fx:id="deleteButton" mnemonicParsing="false" text="Delete favorite" />
+                        <Button fx:id="ChangeNameButton" mnemonicParsing="false" text="Change favorite name" />
+                     </children>
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                  </HBox>
+                  <Label fx:id="OriginLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="58.0" text="Origine :" underline="true" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </Label>
+                  <SearchableComboBox fx:id="SearchOrigin" maxHeight="-Infinity" maxWidth="-Infinity" promptText="Origin">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </SearchableComboBox>
+                  <Label fx:id="DestinationLabel" text="Destination :" underline="true">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </Label>
+                  <SearchableComboBox fx:id="SearchDestination" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="9.0" prefWidth="176.0" promptText="Destination">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </SearchableComboBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <Button fx:id="searchButton" mnemonicParsing="false" text="Search" />
+                        <Button fx:id="AddFavorites" mnemonicParsing="false" text="Add to favorites" />
+                        <Button fx:id="ChangeStationButton" mnemonicParsing="false" text="Change favorite stations" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+            <TableView fx:id="ResultTable" prefHeight="310.0" prefWidth="453.0">
+              <columns>
+                <TableColumn fx:id="StationColumn" editable="false" prefWidth="232.0" text="Stations" />
+                <TableColumn fx:id="LineColumn" editable="false" prefWidth="220.800048828125" text="Lines" />
+              </columns>
+               <HBox.margin>
+                  <Insets right="10.0" top="10.0" />
+               </HBox.margin>
+            </TableView>
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+      </HBox>
+  </children>
+</VBox>

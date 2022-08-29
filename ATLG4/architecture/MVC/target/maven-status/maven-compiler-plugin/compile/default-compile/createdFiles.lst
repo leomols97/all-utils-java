@@ -1,0 +1,8 @@
+atl\observer\Observer.class
+atl\architetural\mvc\Main.class
+atl\architetural\mvc\ViewBinary.class
+atl\handler\ButtonHandler.class
+atl\observer\Observable.class
+atl\architetural\mvc\Model.class
+atl\architetural\mvc\View.class
+atl\architetural\mvc\Controller.class

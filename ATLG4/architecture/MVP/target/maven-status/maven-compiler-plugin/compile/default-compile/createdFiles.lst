@@ -1,0 +1,9 @@
+atl\architetural\mvp\Presenter.class
+atl\observer\Observer.class
+atl\architetural\mvp\View.class
+atl\architetural\mvp\Model.class
+atl\handler\ButtonHandler.class
+atl\observer\Observable.class
+atl\architetural\mvp\ViewBinary.class
+atl\architetural\mvp\PresenterBinary.class
+atl\architetural\mvp\Main.class

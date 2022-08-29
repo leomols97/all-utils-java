@@ -1,0 +1,9 @@
+atl\architetural\mvvm\Main.class
+atl\architetural\mvvm\View.class
+atl\observer\Observer.class
+atl\architetural\mvvm\Model.class
+atl\handler\ButtonHandler.class
+atl\observer\Observable.class
+atl\observer\MyValue.class
+atl\architetural\mvvm\ViewBinary.class
+atl\architetural\mvvm\ViewModel.class
